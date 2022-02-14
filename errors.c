@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 18:21:24 by mannouao          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/14 17:22:24 by mannouao         ###   ########.fr       */
-=======
-/*   Updated: 2022/02/14 14:05:57 by hnaciri-         ###   ########.fr       */
->>>>>>> bebae7780885a6bc7f7933897317bbd13ff9f4de
+/*   Created: 2022/02/14 18:11:28 by mannouao          #+#    #+#             */
+/*   Updated: 2022/02/14 18:11:29 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 

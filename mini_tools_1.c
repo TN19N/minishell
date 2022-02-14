@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_tools_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 18:22:41 by mannouao          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/14 16:05:28 by mannouao         ###   ########.fr       */
-=======
-/*   Updated: 2022/02/14 11:55:19 by hnaciri-         ###   ########.fr       */
->>>>>>> bebae7780885a6bc7f7933897317bbd13ff9f4de
+/*   Created: 2022/02/14 18:11:07 by mannouao          #+#    #+#             */
+/*   Updated: 2022/02/14 18:11:50 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 
@@ -80,7 +78,6 @@ void	handler(int sig)
 	i = 0;
 	(void)sig;
 	write(1, "\n", 1);
-<<<<<<< HEAD
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -90,8 +87,4 @@ void	handler(int sig)
 		i++;
 	}
 	data.errsv = 1;
-=======
-	data.errsv = 1;
-	get_cmd_line();
->>>>>>> bebae7780885a6bc7f7933897317bbd13ff9f4de
 }

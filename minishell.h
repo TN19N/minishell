@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/31 10:17:01 by mannouao          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/14 17:22:40 by mannouao         ###   ########.fr       */
-=======
-/*   Updated: 2022/02/14 15:00:16 by hnaciri-         ###   ########.fr       */
->>>>>>> bebae7780885a6bc7f7933897317bbd13ff9f4de
+/*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
+/*   Updated: 2022/02/14 18:10:28 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #ifndef MINISHELL_H
 
@@ -80,11 +78,7 @@ typedef struct s_data
 	int			count;
 	int			num_childs;
 	int			errsv;
-<<<<<<< HEAD
 	int			*pid;
-=======
-	int			count;
->>>>>>> bebae7780885a6bc7f7933897317bbd13ff9f4de
 	char		**my_env;
 	char		*cmd_line;
 	int			num_cmds;
@@ -119,7 +113,6 @@ void	creat_files(t_token *token, int *fd, int *num_fd);
 int		wait_for_child(t_data *data, int i);
 void	free_all(t_data *data, int **pipes, int count);
 void	set_signals(void);
-<<<<<<< HEAD
 int 	if_builtins_cmds(t_mini_data *mini_data);
 void	ft_exit(void);
 void	ft_env(void);
@@ -132,13 +125,10 @@ void	ft_pwd(void);
 void	ft_unset_err (char *s);
 t_token	*grep_a_type(t_token *token, int type);
 char 	**alloc_new_env(t_token *head, int *tmp, int *check_if_err);
-
-=======
 void    ft_env (void);
 void	ft_exit (void);
 void	ft_pwd (void);
 void	ft_unset (t_mini_data *l);
 void	edit_attr (void);
 void	ft_unset_err (char *s);
->>>>>>> bebae7780885a6bc7f7933897317bbd13ff9f4de
 #endif

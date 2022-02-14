@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:20:52 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 17:22:52 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/14 18:17:16 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	**alloc_new_env(t_token *head, int *tmp, int *check_if_err)
 			if(!ft_is_valid(head->tok))
 			{
 				ft_unset_err (head->tok);
-				check_if_err = 1;
+				*check_if_err = 1;
 			}
 			if (ft_is_in(head->tok))
 				(*tmp)--;
@@ -93,6 +93,5 @@ char	**alloc_new_env(t_token *head, int *tmp, int *check_if_err)
 	new_env = ft_calloc((*tmp + 1), sizeof(char *));
 	if (!new_env)
 		ft_error(NULL);
-	else
-		return (new_env);
+	return (new_env);
 }

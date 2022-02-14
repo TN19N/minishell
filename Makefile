@@ -3,17 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+         #
+#    By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-<<<<<<< HEAD
 #    Created: 2022/02/14 14:18:57 by mannouao          #+#    #+#              #
-#    Updated: 2022/02/14 16:33:14 by mannouao         ###   ########.fr        #
-=======
-#    Created: 2022/01/31 10:17:04 by mannouao          #+#    #+#              #
-#    Updated: 2022/02/14 11:35:54 by hnaciri-         ###   ########.fr        #
->>>>>>> bebae7780885a6bc7f7933897317bbd13ff9f4de
+#    Updated: 2022/02/14 18:09:56 by mannouao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME = minishell
 SRCS = minishell.c \
@@ -27,13 +23,8 @@ SRCS = minishell.c \
 		get_cmd_paths.c \
 		her_doc.c \
 		mini_tools_3.c \
-<<<<<<< HEAD
 		builtins_cmds1.c \
 		builtins_cmds2.c
-=======
-		commands1.c \
-		commands2.c
->>>>>>> bebae7780885a6bc7f7933897317bbd13ff9f4de
 
 LIBFT_PATH = libft/libft.a
 OBJS = $(SRCS:.c=.o)

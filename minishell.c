@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hnaciri- <hnaciri-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/31 10:17:07 by mannouao          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/14 16:25:12 by mannouao         ###   ########.fr       */
-=======
-/*   Updated: 2022/02/14 15:07:05 by hnaciri-         ###   ########.fr       */
->>>>>>> bebae7780885a6bc7f7933897317bbd13ff9f4de
+/*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
+/*   Updated: 2022/02/14 18:10:53 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 
@@ -83,11 +81,7 @@ void	get_cmd_line(void)
 		data.num_childs = -1;
 		data.cmd_line = readline("minishell:$ ");
 		if (!data.cmd_line)
-<<<<<<< HEAD
 			ft_exit();
-=======
-			ft_exit ();
->>>>>>> bebae7780885a6bc7f7933897317bbd13ff9f4de
 		if (ft_strlen(data.cmd_line) > 0)
 		{
 			add_history(data.cmd_line);
@@ -118,7 +112,6 @@ void	copy_env(char **env)
 	data.my_env = malloc(sizeof(char *) * (data.count + 1));
 	if (!data.my_env)
 		ft_error(NULL);
-<<<<<<< HEAD
 	data.count = 0;
 	while (env[data.count])
 	{
@@ -126,13 +119,6 @@ void	copy_env(char **env)
 		data.count++;
 	}
 	data.my_env[data.count] = NULL;
-=======
-	count = -1;
-	while (env[++count])
-		data.my_env[count] = ft_strdup(env[count]);
-	data.count = count;
-	data.my_env[count] = NULL;
->>>>>>> bebae7780885a6bc7f7933897317bbd13ff9f4de
 }
 
 int	main(int ac, char **av, char **env)
