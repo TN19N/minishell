@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 20:08:31 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 07:51:44 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:57:01 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	if_builtins_cmds(t_mini_data *mini_data)
 	return (1);
 }
 
-void	execute_builtins_cmds(t_mini_data *mini_data)
+void	execute_builtins_cmds(t_mini_data *mini_data, int last_type)
 {
 	t_token	*token;
 
@@ -98,13 +98,14 @@ void	execute_builtins_cmds(t_mini_data *mini_data)
 	else if (!ft_strcmp(token->tok, "pwd"))
 		ft_pwd();
 	else if (!ft_strcmp(token->tok, "cd"))
-		return ;
+		ft_cd(mini_data);
 	else if (!ft_strcmp(token->tok, "env"))
 		ft_env();
 	else if (!ft_strcmp(token->tok, "export"))
 		return ;
 	else if (!ft_strcmp(token->tok, "unset"))
 		ft_unset(mini_data);
-	else if (!ft_strcmp(token->tok, "exit"))
+	else if (!ft_strcmp(token->tok, "exit") && last_type != PIPE && \
+	mini_data->type != PIPE)
 		ft_exit();
 }

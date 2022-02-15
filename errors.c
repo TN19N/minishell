@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:11:28 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 20:25:17 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 16:05:26 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ unexpected token `||\'", 2);
 		free_all(mini_data->data, NULL, 0);
 		get_cmd_line();
 	}
+}
+
+void	no_home_for_cd(void)
+{
+	printf("minishell: cd: HOME not set\n");
+	g_data.errsv = 1;
 }
 
 void	ft_unset_err(char *s)

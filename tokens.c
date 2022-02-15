@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 17:05:25 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/13 13:00:10 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 13:20:59 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	quotes(t_token **token, char *cmd_line, int *i, int *last_type)
 				init_tokens(token, last_type, DOUBLE_QUOTE);
 			else if (c == '\'')
 				init_tokens(token, last_type, SINGLE_QUOTE);
-			*i += 1;
+			*i += 2;
 			break ;
 		}
 	}

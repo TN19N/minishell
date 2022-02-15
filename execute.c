@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 11:34:52 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:56:23 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	start_executing_b_cmds(t_mini_data *mini_data, int **pipes, int index, int 
 	fd_files = open_files(mini_data);
 	set_her_doc_and_files(mini_data, fd_files, her_pipe);
 	set_rederactions(mini_data, pipes, last_type, index);
-	execute_builtins_cmds(mini_data);
+	execute_builtins_cmds(mini_data, last_type);
 	dup2(save_in, STDIN_FILENO);
 	dup2(save_out, STDOUT_FILENO);
 	close(save_in);

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 09:33:55 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:14:26 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_mini_data
 
 typedef struct s_data
 {
+	int			old_pwd;
 	int			count;
 	int			num_childs;
 	int			errsv;
@@ -117,12 +118,12 @@ void	ft_env(void);
 int		ft_check(t_token *head, char *env);
 int		ft_is_valid(char *s);
 int		ft_is_in(char *s);
-void	execute_builtins_cmds(t_mini_data *mini_data);
+void	execute_builtins_cmds(t_mini_data *mini_data, int last_type);
 void	ft_unset(t_mini_data *mini_data);
 void	ft_pwd(void);
 void	ft_unset_err(char *s);
 t_token	*grep_a_type(t_token *token, int type);
-char	**alloc_new_env(t_token *head, int *tmp, int *check_if_err);
+char	**alloc_new_env(t_token *head, int *tmp);
 void	ft_env(void);
 void	ft_exit(void);
 void	ft_pwd(void);
@@ -133,5 +134,9 @@ void	check_syntax(t_data *data);
 void	set_her_doc_and_files(t_mini_data *mini_data, int *fd_files, int *her_pipe);
 void	set_rederactions(t_mini_data *mini_data, int **pipes, int last_type, int index);
 void	dup_all_files(t_mini_data *mini_data, int *fd);
+void	ft_cd(t_mini_data *mini_data);
+void	ft_free(char **a);
+void	no_home_for_cd(void);
+char	**copy_env(char **env);
 
 #endif

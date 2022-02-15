@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:39:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 20:24:46 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 13:37:27 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ char	*get_cmd_path(char *cmd, char **mini_paths)
 	return (NULL);
 }
 
+void	command_error_no_path(char *cmd)
+{
+	printf("minishell: ");
+	printf("%s", cmd);
+	printf(": No such file or directory\n");
+	exit(127);
+}
+
 char	*check_cmd_path(char *cmd)
 {
 	int		i;
@@ -52,12 +60,11 @@ char	*check_cmd_path(char *cmd)
 		}
 	}
 	full_path = get_full_path("PATH");
-	if (full_path)
-	{
-		cmd_path = get_cmd_path(cmd, ft_split(full_path, ':'));
-		if (cmd_path)
-			return (cmd_path);
-	}
+	if (!full_path)
+		command_error_no_path(cmd);
+	cmd_path = get_cmd_path(cmd, ft_split(full_path, ':'));
+	if (cmd_path)
+		return (cmd_path);
 	g_data.errsv = 127;
 	return (NULL);
 }
