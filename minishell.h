@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 20:32:51 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 09:33:55 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,4 +130,8 @@ void	ft_unset(t_mini_data *l);
 void	edit_attr(void);
 void	ft_unset_err(char *s);
 void	check_syntax(t_data *data);
+void	set_her_doc_and_files(t_mini_data *mini_data, int *fd_files, int *her_pipe);
+void	set_rederactions(t_mini_data *mini_data, int **pipes, int last_type, int index);
+void	dup_all_files(t_mini_data *mini_data, int *fd);
+
 #endif

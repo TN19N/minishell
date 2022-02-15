@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 21:13:24 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:34:52 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,40 +36,6 @@ int	*open_files(t_mini_data *mini_data)
 	return (fd);
 }
 
-void	dup_all_files(t_mini_data *mini_data, int *fd)
-{
-	int		i;
-	t_token	*token;
-
-	i = 0;
-	while (fd[i] != -1)
-		i++;
-	i--;
-	token = mini_data->token_list;
-	while (token)
-	{
-		if (token->type == OUT_FILE)
-			dup2(fd[i--], STDOUT_FILENO);
-		else if (token->type == IN_FILE)
-			dup2(fd[i--], STDIN_FILENO);
-		else if (token->type == OUT_FILE_APP)
-			dup2(fd[i--], STDOUT_FILENO);
-		token = token->next;
-	}
-}
-
-void	set_rederactions(t_mini_data *mini_data, int *fd_files)
-{
-	int		*her_pipe;
-	here_doc(mini_data, her_pipe);
-	if (fd_files)
-		dup_all_files(mini_data, fd_files);
-	if (mini_data->type == PIPE)
-		dup2(pipes[index][WRITE], STDOUT_FILENO);
-	if (last_type == PIPE)
-		dup2(pipes[index - 1][READ], STDIN_FILENO);
-}
-
 void	executing(t_mini_data *mini_data, int **pipes, int index, int last_type)
 {
 	char	*cmd_path;
@@ -80,16 +46,11 @@ void	executing(t_mini_data *mini_data, int **pipes, int index, int last_type)
 	her_pipe = NULL;
 	cmd_path = NULL;
 	fd_files = open_files(mini_data);
-	if (if_builtins_cmds(mini_data))
-		get_cmd_paths(mini_data, &cmd_path, &cmd_args);
-	set_rederactions(mini_data, fd_files);
-	if (!if_builtins_cmds(mini_data))
-		execute_builtins_cmds(mini_data);
-	else
-	{
-		if (execve(cmd_path, cmd_args, g_data.my_env) == -1)
-			ft_error(NULL);
-	}
+	get_cmd_paths(mini_data, &cmd_path, &cmd_args);
+	set_her_doc_and_files(mini_data, fd_files, her_pipe);
+	set_rederactions(mini_data, pipes, last_type, index);
+	if (execve(cmd_path, cmd_args, g_data.my_env) == -1)
+		ft_error(NULL);
 }
 
 void	init_for_child(int *index, int *last_type, t_data *data, int **pipes)
@@ -101,6 +62,26 @@ void	init_for_child(int *index, int *last_type, t_data *data, int **pipes)
 		(*index)++;
 		close(pipes[*index - 1][WRITE]);
 	}
+}
+
+void	start_executing_b_cmds(t_mini_data *mini_data, int **pipes, int index, int last_type)
+{
+	int		*fd_files;
+	int		*her_pipe;
+	int		save_out;
+	int		save_in;
+
+	her_pipe = NULL;
+	save_in = dup(STDIN_FILENO);
+	save_out = dup(STDOUT_FILENO);
+	fd_files = open_files(mini_data);
+	set_her_doc_and_files(mini_data, fd_files, her_pipe);
+	set_rederactions(mini_data, pipes, last_type, index);
+	execute_builtins_cmds(mini_data);
+	dup2(save_in, STDIN_FILENO);
+	dup2(save_out, STDOUT_FILENO);
+	close(save_in);
+	close(save_out);
 }
 
 void	start_executing(t_data *data)
@@ -119,14 +100,17 @@ void	start_executing(t_data *data)
 	while (++data->num_childs < data->num_cmds)
 	{
 		init_for_child(&index, &l_type, data, pipes);
+		if (!if_builtins_cmds(&data->mini_cmds[data->num_childs]))
+		{
+			data->pid[data->num_childs] = -1337;
+			start_executing_b_cmds(&data->mini_cmds[data->num_childs], pipes, index, l_type);
+			continue ;
+		}
 		data->pid[data->num_childs] = fork();
 		if (data->pid[data->num_childs] == -1)
 			ft_error(NULL);
 		else if (data->pid[data->num_childs] == 0)
-		{
-			
 			executing(&data->mini_cmds[data->num_childs], pipes, index, l_type);
-		}
 		else
 			if (wait_for_child(data, data->num_childs))
 				break ;

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 09:31:41 by hnaciri-          #+#    #+#             */
-/*   Updated: 2022/02/14 21:07:46 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 07:49:23 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_free(char **a)
 void	ft_exit(void)
 {
 	printf("exit\n");
-	exit(42);
+	exit(0);
 }
 
 void	ft_env(void)

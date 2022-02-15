@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 20:08:31 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 20:41:13 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 07:51:44 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,17 @@ void	execute_builtins_cmds(t_mini_data *mini_data)
 
 	token = grep_a_type(mini_data->token_list, CMD);
 	if (!ft_strcmp(token->tok, "echo"))
-		exit(EXIT_SUCCESS) ;
+		return ;
 	else if (!ft_strcmp(token->tok, "pwd"))
 		ft_pwd();
 	else if (!ft_strcmp(token->tok, "cd"))
-		exit(EXIT_SUCCESS) ;
+		return ;
 	else if (!ft_strcmp(token->tok, "env"))
 		ft_env();
 	else if (!ft_strcmp(token->tok, "export"))
-		exit(EXIT_SUCCESS) ;
+		return ;
 	else if (!ft_strcmp(token->tok, "unset"))
 		ft_unset(mini_data);
 	else if (!ft_strcmp(token->tok, "exit"))
 		ft_exit();
-	exit(EXIT_SUCCESS);
 }
