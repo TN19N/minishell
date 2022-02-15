@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:11:28 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 16:05:26 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 18:09:56 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ unexpected token `||\'", 2);
 
 void	no_home_for_cd(void)
 {
-	printf("minishell: cd: HOME not set\n");
+	ft_putendl_fd("minishell: cd: HOME not set", 2);
 	g_data.errsv = 1;
 }
 

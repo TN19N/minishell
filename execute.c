@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 11:56:23 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:06:26 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,10 @@ void	start_executing(t_data *data)
 		{
 			data->pid[data->num_childs] = -1337;
 			start_executing_b_cmds(&data->mini_cmds[data->num_childs], pipes, index, l_type);
+			if (data->mini_cmds[data->num_childs].type == ORLOG && g_data.errsv == 0)
+				break ;
+			else if (data->mini_cmds[data->num_childs].type == ANDLOG && g_data.errsv != 0)
+				break ;
 			continue ;
 		}
 		data->pid[data->num_childs] = fork();

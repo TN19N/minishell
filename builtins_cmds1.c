@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 09:31:41 by hnaciri-          #+#    #+#             */
-/*   Updated: 2022/02/15 16:00:22 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:56:38 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_env(void)
 		printf("%s\n", g_data.my_env[i]);
 		i++;
 	}
+	g_data.errsv = 0;
 }
 
 void	ft_pwd(void)
@@ -50,6 +51,7 @@ void	ft_pwd(void)
 	tmp = getcwd(NULL, 0);
 	printf("%s\n", tmp);
 	free(tmp);
+	g_data.errsv = 0;
 }
 
 void	ft_unset(t_mini_data *mini_data)
@@ -62,6 +64,7 @@ void	ft_unset(t_mini_data *mini_data)
 	i_and_j[0] = -1;
 	i_and_j[1] = -1;
 	tmp = 0;
+	g_data.errsv = 0;
 	head = grep_a_type(mini_data->token_list, CMD);
 	new_env = alloc_new_env(head, &tmp);
 	while (g_data.my_env[++i_and_j[0]])
