@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 18:11:19 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/14 21:13:24 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,18 @@ void	dup_all_files(t_mini_data *mini_data, int *fd)
 	}
 }
 
+void	set_rederactions(t_mini_data *mini_data, int *fd_files)
+{
+	int		*her_pipe;
+	here_doc(mini_data, her_pipe);
+	if (fd_files)
+		dup_all_files(mini_data, fd_files);
+	if (mini_data->type == PIPE)
+		dup2(pipes[index][WRITE], STDOUT_FILENO);
+	if (last_type == PIPE)
+		dup2(pipes[index - 1][READ], STDIN_FILENO);
+}
+
 void	executing(t_mini_data *mini_data, int **pipes, int index, int last_type)
 {
 	char	*cmd_path;
@@ -70,18 +82,12 @@ void	executing(t_mini_data *mini_data, int **pipes, int index, int last_type)
 	fd_files = open_files(mini_data);
 	if (if_builtins_cmds(mini_data))
 		get_cmd_paths(mini_data, &cmd_path, &cmd_args);
-	here_doc(mini_data, her_pipe);
-	if (fd_files)
-		dup_all_files(mini_data, fd_files);
-	if (mini_data->type == PIPE)
-		dup2(pipes[index][WRITE], STDOUT_FILENO);
-	if (last_type == PIPE)
-		dup2(pipes[index - 1][READ], STDIN_FILENO);
+	set_rederactions(mini_data, fd_files);
 	if (!if_builtins_cmds(mini_data))
 		execute_builtins_cmds(mini_data);
 	else
 	{
-		if (execve(cmd_path, cmd_args, data.my_env) == -1)
+		if (execve(cmd_path, cmd_args, g_data.my_env) == -1)
 			ft_error(NULL);
 	}
 }
@@ -101,23 +107,26 @@ void	start_executing(t_data *data)
 {
 	int	**pipes;
 	int	index;
-	int	last_type;
+	int	l_type;
 	int	num_pipes;
 
 	index = 0;
 	num_pipes = get_pipes(data, &pipes);
-	last_type = LASTONE;
+	l_type = LASTONE;
 	data->pid = malloc(sizeof(int) * data->num_cmds);
 	if (!data->pid)
 		ft_error(NULL);
 	while (++data->num_childs < data->num_cmds)
 	{
-		init_for_child(&index, &last_type, data, pipes);
+		init_for_child(&index, &l_type, data, pipes);
 		data->pid[data->num_childs] = fork();
 		if (data->pid[data->num_childs] == -1)
 			ft_error(NULL);
 		else if (data->pid[data->num_childs] == 0)
-			executing(&data->mini_cmds[data->num_childs], pipes, index, last_type);
+		{
+			
+			executing(&data->mini_cmds[data->num_childs], pipes, index, l_type);
+		}
 		else
 			if (wait_for_child(data, data->num_childs))
 				break ;

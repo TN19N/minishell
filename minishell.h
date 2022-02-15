@@ -6,11 +6,9 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 18:10:28 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:32:51 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef MINISHELL_H
 
@@ -55,7 +53,7 @@
 
 typedef struct s_data	t_data;
 
-t_data	data;
+t_data					g_data;
 
 typedef struct s_token
 {
@@ -113,7 +111,7 @@ void	creat_files(t_token *token, int *fd, int *num_fd);
 int		wait_for_child(t_data *data, int i);
 void	free_all(t_data *data, int **pipes, int count);
 void	set_signals(void);
-int 	if_builtins_cmds(t_mini_data *mini_data);
+int		if_builtins_cmds(t_mini_data *mini_data);
 void	ft_exit(void);
 void	ft_env(void);
 int		ft_check(t_token *head, char *env);
@@ -122,13 +120,14 @@ int		ft_is_in(char *s);
 void	execute_builtins_cmds(t_mini_data *mini_data);
 void	ft_unset(t_mini_data *mini_data);
 void	ft_pwd(void);
-void	ft_unset_err (char *s);
+void	ft_unset_err(char *s);
 t_token	*grep_a_type(t_token *token, int type);
-char 	**alloc_new_env(t_token *head, int *tmp, int *check_if_err);
-void    ft_env (void);
-void	ft_exit (void);
-void	ft_pwd (void);
-void	ft_unset (t_mini_data *l);
-void	edit_attr (void);
-void	ft_unset_err (char *s);
+char	**alloc_new_env(t_token *head, int *tmp, int *check_if_err);
+void	ft_env(void);
+void	ft_exit(void);
+void	ft_pwd(void);
+void	ft_unset(t_mini_data *l);
+void	edit_attr(void);
+void	ft_unset_err(char *s);
+void	check_syntax(t_data *data);
 #endif

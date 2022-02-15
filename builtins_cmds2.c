@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:20:52 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 18:17:16 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:55:58 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_check(t_token *head, char *env)
 		if (head->type == ARGS && ft_is_valid (head->tok)
 			&& !ft_strncmp (tmp, env, ft_strlen(tmp)))
 		{
+			printf("sprimi ->(%s)\n", env);
 			free (tmp);
 			return (1);
 		}
@@ -38,9 +39,9 @@ int	ft_is_in(char *s)
 
 	l = ft_strjoin (s, "=");
 	i = -1;
-	while (data.my_env[++i])
+	while (g_data.my_env[++i])
 	{
-		if (!ft_strncmp (data.my_env[i], l, ft_strlen (l)))
+		if (!ft_strncmp (g_data.my_env[i], l, ft_strlen (l)))
 		{
 			free (l);
 			return (1);
@@ -57,14 +58,14 @@ int	ft_is_valid(char *s)
 	i = 0;
 	if (!ft_isalpha (s[i]))
 	{
-		data.errsv = 1;
+		g_data.errsv = 1;
 		return (0);
 	}
 	while (s[++i])
 	{
 		if (!ft_isalnum(s[i]))
 		{
-			data.errsv = 1;
+			g_data.errsv = 1;
 			return (0);
 		}
 	}
@@ -73,14 +74,14 @@ int	ft_is_valid(char *s)
 
 char	**alloc_new_env(t_token *head, int *tmp, int *check_if_err)
 {
-	char **new_env;
+	char	**new_env;
 
-	*tmp = data.count;
+	*tmp = g_data.count;
 	while (head)
 	{
 		if (head->type == ARGS)
 		{
-			if(!ft_is_valid(head->tok))
+			if (!ft_is_valid(head->tok))
 			{
 				ft_unset_err (head->tok);
 				*check_if_err = 1;

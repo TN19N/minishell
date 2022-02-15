@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 17:20:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 11:09:56 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:22:10 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,32 +70,28 @@ int	get_pipes(t_data *data, int ***pipes)
 
 void	creat_files(t_token *token, int *fd, int *num_fd)
 {
+	int	error;
+
+	error = 0;
 	if (token->type == OUT_FILE)
 	{
 		fd[*num_fd] = open(token->tok, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd[(*num_fd)--] == -1)
-		{
-			data.errsv = 1;
-			ft_error(token->tok);
-		}
+		error = 1;
 	}
 	else if (token->type == IN_FILE)
 	{
 		fd[*num_fd] = open(token->tok, O_RDONLY | O_EXCL);
-		if (fd[(*num_fd)--] == -1)
-		{
-			data.errsv = 1;
-			ft_error(token->tok);
-		}
+		error = 1;
 	}
 	else if (token->type == OUT_FILE_APP)
 	{
 		fd[*num_fd] = open(token->tok, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fd[(*num_fd)--] == -1)
-		{
-			data.errsv = 1;
-			ft_error(token->tok);
-		}
+		error = 1;
+	}
+	if (error == 1 && fd[(*num_fd)--] == -1)
+	{
+		g_data.errsv = 1;
+		ft_error(token->tok);
 	}
 }
 
@@ -108,6 +104,8 @@ int	wait_for_child(t_data *data, int i)
 		data->errsv = 130;
 	else
 		data->errsv = WEXITSTATUS(returned);
+	if (data->errsv == 42)
+		exit(0);
 	if (data->mini_cmds[i].type == ORLOG && returned == 0)
 		return (1);
 	else if (data->mini_cmds[i].type == ANDLOG && returned != 0)

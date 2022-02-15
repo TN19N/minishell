@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 20:08:31 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 17:23:13 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:41:13 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	free_all(t_data *data, int **pipes, int count)
 	free(data->cmd_line);
 }
 
-t_token *grep_a_type(t_token *token, int type)
+t_token	*grep_a_type(t_token *token, int type)
 {
 	while (token)
 	{
@@ -64,7 +64,7 @@ t_token *grep_a_type(t_token *token, int type)
 	return (NULL);
 }
 
-int if_builtins_cmds(t_mini_data *mini_data)
+int	if_builtins_cmds(t_mini_data *mini_data)
 {
 	t_token	*token;
 
@@ -72,7 +72,7 @@ int if_builtins_cmds(t_mini_data *mini_data)
 	if (!token)
 		return (1);
 	if (!ft_strcmp(token->tok, "echo"))
-		return(0);
+		return (0);
 	else if (!ft_strcmp(token->tok, "pwd"))
 		return (0);
 	else if (!ft_strcmp(token->tok, "cd"))
@@ -94,15 +94,15 @@ void	execute_builtins_cmds(t_mini_data *mini_data)
 
 	token = grep_a_type(mini_data->token_list, CMD);
 	if (!ft_strcmp(token->tok, "echo"))
-		return ;
+		exit(EXIT_SUCCESS) ;
 	else if (!ft_strcmp(token->tok, "pwd"))
 		ft_pwd();
 	else if (!ft_strcmp(token->tok, "cd"))
-		return ;
+		exit(EXIT_SUCCESS) ;
 	else if (!ft_strcmp(token->tok, "env"))
 		ft_env();
 	else if (!ft_strcmp(token->tok, "export"))
-		return ;
+		exit(EXIT_SUCCESS) ;
 	else if (!ft_strcmp(token->tok, "unset"))
 		ft_unset(mini_data);
 	else if (!ft_strcmp(token->tok, "exit"))

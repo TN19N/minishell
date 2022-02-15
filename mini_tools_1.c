@@ -6,11 +6,9 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:11:07 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 18:11:50 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:23:15 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "minishell.h"
 
@@ -23,12 +21,12 @@ char	*get_full_path(char *to_find)
 	i = -1;
 	tmp = ft_strjoin(to_find, "=");
 	len = ft_strlen(tmp);
-	while (data.my_env[++i])
+	while (g_data.my_env[++i])
 	{
-		if (!ft_strncmp(data.my_env[i], tmp, len))
+		if (!ft_strncmp(g_data.my_env[i], tmp, len))
 		{
 			free(tmp);
-			return (data.my_env[i] + len);
+			return (g_data.my_env[i] + len);
 		}
 	}
 	return (NULL);
@@ -73,7 +71,7 @@ void	check_if_token_full(t_token **token, int *last_type)
 
 void	handler(int sig)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	(void)sig;
@@ -81,10 +79,10 @@ void	handler(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	while (i < data.num_childs)
+	while (i < g_data.num_childs)
 	{
-		kill(data.pid[i], SIGKILL);
+		kill(g_data.pid[i], SIGKILL);
 		i++;
 	}
-	data.errsv = 1;
+	g_data.errsv = 1;
 }

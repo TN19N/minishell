@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 11:15:35 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 07:32:54 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:07:27 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,5 @@ void	get_mini_cmds(t_data *data)
 			split_spliter(&data->mini_cmds[index++], &i, &j, data);
 	}
 	init_last_cmd(data, index, j, i);
-	i = -1;
-	while (++i < data->num_cmds)
-		check_syntax_errors(&data->mini_cmds[i]);
+	check_syntax(data);
 }

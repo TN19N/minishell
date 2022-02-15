@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:39:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 07:08:39 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:24:46 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*get_cmd_path(char *cmd, char **mini_paths)
 		if (!access(cmd_path, F_OK))
 		{
 			free(tmp);
-			errno = EXIT_SUCCESS;
 			return (cmd_path);
 		}
 		free(cmd_path);
@@ -48,7 +47,7 @@ char	*check_cmd_path(char *cmd)
 			return (cmd);
 		else
 		{
-			data.errsv = 126;
+			g_data.errsv = 126;
 			ft_error(cmd);
 		}
 	}
@@ -59,7 +58,7 @@ char	*check_cmd_path(char *cmd)
 		if (cmd_path)
 			return (cmd_path);
 	}
-	data.errsv = 127;
+	g_data.errsv = 127;
 	return (NULL);
 }
 

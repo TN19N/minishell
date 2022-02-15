@@ -6,11 +6,9 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:11:28 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 18:11:29 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:25:17 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "minishell.h"
 
@@ -27,13 +25,13 @@ unexpected token `&&\'", 2);
 		else if (mini_data->type == ORLOG)
 			ft_putendl_fd("minishell: syntax error near \
 unexpected token `||\'", 2);
-		data.errsv = 258;
+		g_data.errsv = 258;
 		free_all(mini_data->data, NULL, 0);
 		get_cmd_line();
 	}
 }
 
-void	ft_unset_err (char *s)
+void	ft_unset_err(char *s)
 {
 	ft_putstr_fd("minishell: unset: `", 2);
 	ft_putstr_fd (s, 2);
@@ -49,13 +47,13 @@ void	ft_error(char *str)
 	{
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(": ", 2);
-		if (data.errsv == 127)
+		if (g_data.errsv == 127)
 			ft_putendl_fd("command not found", 2);
-		else if (data.errsv == 1)
+		else if (g_data.errsv == 1)
 			ft_putendl_fd("No such file or directory", 2);
-		else if (data.errsv == 126)
+		else if (g_data.errsv == 126)
 			ft_putendl_fd("Permission denied", 2);
-		exit(data.errsv);
+		exit(g_data.errsv);
 	}
 	exit(EXIT_FAILURE);
 }

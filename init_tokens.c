@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:12:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 12:54:24 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/14 20:23:51 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	replace_env_ver(char **tok, int i, int j)
 
 	env_ver = ft_substr(*tok, j, (i - j));
 	if (!ft_strcmp(env_ver, "?"))
-		env_value = ft_itoa(data.errsv);
+		env_value = ft_itoa(g_data.errsv);
 	else if (!ft_strcmp(env_ver, "$"))
 		env_value = ft_itoa(getpid());
 	else
@@ -83,7 +83,7 @@ near unexpected token `>>'", 2);
 		else if (type == HERE_DOC)
 			ft_putendl_fd("minishell: syntax error \
 near unexpected token `<<'", 2);
-		data.errsv = 258;
+		g_data.errsv = 258;
 		free_all((*token)->data, NULL, 0);
 		get_cmd_line();
 	}
