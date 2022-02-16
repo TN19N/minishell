@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:11:07 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 07:10:10 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/16 07:32:15 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*get_full_path(char *to_find)
 			return (g_data.my_env[i] + len);
 		}
 	}
+	free(tmp);
 	return (NULL);
 }
 

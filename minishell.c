@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 15:53:41 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 20:30:57 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	edit_attr ();
-	g_data.old_pwd = 0;
+	g_data.first_pwd = 0;
 	g_data.errsv = 0;
 	g_data.my_env = copy_env(env);
 	sig_int.sa_handler = &handler;

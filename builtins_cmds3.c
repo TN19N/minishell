@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:40:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 20:04:50 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/16 07:32:47 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ int	grep_pwd(char *s)
 
 void	ft_setpwd(char *old)
 {
-	static int	just_ones;
 	int			i;
 	char		*new;
-	char		**temp;
+	char		**temp_env;
 
 	new = getcwd (NULL, 0);
 	i = grep_pwd("PWD=");
@@ -39,19 +38,21 @@ void	ft_setpwd(char *old)
 	}
 	free (new); 
 	i = grep_pwd("OLDPWD=");
-	if (just_ones == 0 && i == -1)
+	if (g_data.first_pwd == 0 && i == -1)
 	{
-		temp = malloc(sizeof(char *) * (g_data.count + 2));
-		if (!temp)
+		temp_env = ft_calloc ((g_data.count + 2), sizeof(char *));
+		if (!temp_env)
 			ft_error(NULL);
-		temp = copy_env(g_data.my_env);
-		temp[g_data.count++] = ft_strjoin ("OLDPWD=", old);
-		temp[g_data.count] = NULL;
-		ft_free(g_data.my_env);
-		g_data.my_env = temp;;
-		just_ones = 1;
+		g_data.count = -1;
+		while (g_data.my_env[++g_data.count])
+			temp_env[g_data.count] = ft_strdup (g_data.my_env[g_data.count]);
+		temp_env[g_data.count++] = ft_strjoin ("OLDPWD=", old);
+		temp_env[g_data.count] = 0;
+		ft_free (g_data.my_env);
+		g_data.my_env = temp_env;
+		g_data.first_pwd = 1;
 	}
-	else if (i != -1)
+	else
 	{
 		free (g_data.my_env[i]);
 		g_data.my_env[i] = ft_strjoin("OLDPWD=", old);

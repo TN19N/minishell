@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 17:06:26 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/16 08:00:34 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,14 @@ void	executing(t_mini_data *mini_data, int **pipes, int index, int last_type)
 
 	her_pipe = NULL;
 	cmd_path = NULL;
+	mini_data->fake_in = dup(STDIN_FILENO);
+	mini_data->fake_out = dup(STDOUT_FILENO);
 	fd_files = open_files(mini_data);
 	get_cmd_paths(mini_data, &cmd_path, &cmd_args);
-	set_her_doc_and_files(mini_data, fd_files, her_pipe);
 	set_rederactions(mini_data, pipes, last_type, index);
+	set_her_doc_and_files(mini_data, fd_files, her_pipe);
+	close(mini_data->fake_in);
+	close(mini_data->fake_out);
 	if (execve(cmd_path, cmd_args, g_data.my_env) == -1)
 		ft_error(NULL);
 }

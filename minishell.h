@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 15:14:26 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/16 07:42:22 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef struct s_token
 
 typedef struct s_mini_data
 {
+	int		fake_out;
+	int		fake_in;
 	int		type;
 	char	*all_cmd;
 	t_token	*token_list;
@@ -73,7 +75,7 @@ typedef struct s_mini_data
 
 typedef struct s_data
 {
-	int			old_pwd;
+	int			first_pwd;
 	int			count;
 	int			num_childs;
 	int			errsv;

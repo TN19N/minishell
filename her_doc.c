@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 12:45:01 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 09:34:18 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/16 07:59:35 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	here_doc(t_mini_data *mini_data, int *her_pipe)
 				if (!her_pipe)
 					ft_error(NULL);
 			}
+			dup2(mini_data->fake_in, STDIN_FILENO);
+			dup2(mini_data->fake_out, STDOUT_FILENO);
 			read_line(her_pipe, token);
 		}
 		token = token->next;

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:20:52 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 14:49:51 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/15 20:32:47 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_is_in(char *s)
 		{
 			free (l);
 			if (!ft_strncmp(g_data.my_env[i], "OLDPWD=", 7))
-				g_data.old_pwd = -1;
+				g_data.first_pwd = 1;
 			return (1);
 		}
 	}
