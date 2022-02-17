@@ -6,35 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/16 08:00:34 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/17 11:13:37 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	*open_files(t_mini_data *mini_data)
-{
-	int		num_fd;
-	int		*fd;
-	t_token	*token;
-
-	num_fd = number_of_types(mini_data, OUT_FILE);
-	num_fd += number_of_types(mini_data, IN_FILE);
-	num_fd += number_of_types(mini_data, OUT_FILE_APP);
-	if (num_fd == 0)
-		return (NULL);
-	fd = malloc(sizeof(int) * (num_fd + 1));
-	if (!fd)
-		ft_error(NULL);
-	fd[num_fd--] = -1;
-	token = mini_data->token_list;
-	while (token)
-	{
-		creat_files(token, fd, &num_fd);
-		token = token->next;
-	}
-	return (fd);
-}
 
 void	executing(t_mini_data *mini_data, int **pipes, int index, int last_type)
 {
@@ -45,14 +21,13 @@ void	executing(t_mini_data *mini_data, int **pipes, int index, int last_type)
 
 	her_pipe = NULL;
 	cmd_path = NULL;
-	mini_data->fake_in = dup(STDIN_FILENO);
-	mini_data->fake_out = dup(STDOUT_FILENO);
+	g_data.save_out = dup(STDOUT_FILENO);
+	g_data.save_tmp_fd = g_data.save_out;
 	fd_files = open_files(mini_data);
 	get_cmd_paths(mini_data, &cmd_path, &cmd_args);
-	set_rederactions(mini_data, pipes, last_type, index);
-	set_her_doc_and_files(mini_data, fd_files, her_pipe);
-	close(mini_data->fake_in);
-	close(mini_data->fake_out);
+	set_reder(mini_data, pipes, last_type, index);
+	set_hd_and_f(mini_data, fd_files, her_pipe);
+	close(g_data.save_out);
 	if (execve(cmd_path, cmd_args, g_data.my_env) == -1)
 		ft_error(NULL);
 }
@@ -68,60 +43,60 @@ void	init_for_child(int *index, int *last_type, t_data *data, int **pipes)
 	}
 }
 
-void	start_executing_b_cmds(t_mini_data *mini_data, int **pipes, int index, int last_type)
+void	s_exec_b_cmds(t_mini_data *m_data, int **pipes, int i, int l_type)
 {
 	int		*fd_files;
 	int		*her_pipe;
-	int		save_out;
-	int		save_in;
 
 	her_pipe = NULL;
-	save_in = dup(STDIN_FILENO);
-	save_out = dup(STDOUT_FILENO);
-	fd_files = open_files(mini_data);
-	set_her_doc_and_files(mini_data, fd_files, her_pipe);
-	set_rederactions(mini_data, pipes, last_type, index);
-	execute_builtins_cmds(mini_data, last_type);
-	dup2(save_in, STDIN_FILENO);
-	dup2(save_out, STDOUT_FILENO);
-	close(save_in);
-	close(save_out);
+	g_data.save_in = dup(STDIN_FILENO);
+	g_data.save_out = dup(STDOUT_FILENO);
+	g_data.save_tmp_fd = g_data.save_out;
+	fd_files = open_files(m_data);
+	set_reder(m_data, pipes, l_type, i);
+	set_hd_and_f(m_data, fd_files, her_pipe);
+	execute_builtins_cmds(m_data, l_type);
+	dup2(g_data.save_in, STDIN_FILENO);
+	dup2(g_data.save_out, STDOUT_FILENO);
+	close(g_data.save_in);
+	close(g_data.save_out);
+}
+
+int	creat_a_child(t_data *data, int **pipes, int i, int l_type)
+{
+	data->pid[data->num_childs] = fork();
+	if (data->pid[data->num_childs] == -1)
+		ft_error(NULL);
+	else if (data->pid[data->num_childs] == 0)
+		executing(&data->mini_cmds[data->num_childs], pipes, i, l_type);
+	else
+		if (wait_for_child(data, data->num_childs))
+			return (1);
+	return (0);
 }
 
 void	start_executing(t_data *data)
 {
 	int	**pipes;
-	int	index;
+	int	i;
 	int	l_type;
 	int	num_pipes;
 
-	index = 0;
-	num_pipes = get_pipes(data, &pipes);
-	l_type = LASTONE;
-	data->pid = malloc(sizeof(int) * data->num_cmds);
-	if (!data->pid)
-		ft_error(NULL);
+	i = 0;
+	init_to_start(data, &pipes, &num_pipes, &l_type);
 	while (++data->num_childs < data->num_cmds)
 	{
-		init_for_child(&index, &l_type, data, pipes);
+		init_for_child(&i, &l_type, data, pipes);
 		if (!if_builtins_cmds(&data->mini_cmds[data->num_childs]))
 		{
 			data->pid[data->num_childs] = -1337;
-			start_executing_b_cmds(&data->mini_cmds[data->num_childs], pipes, index, l_type);
-			if (data->mini_cmds[data->num_childs].type == ORLOG && g_data.errsv == 0)
-				break ;
-			else if (data->mini_cmds[data->num_childs].type == ANDLOG && g_data.errsv != 0)
+			s_exec_b_cmds(&data->mini_cmds[data->num_childs], pipes, i, l_type);
+			if (check_to_stop(data, data->num_childs))
 				break ;
 			continue ;
 		}
-		data->pid[data->num_childs] = fork();
-		if (data->pid[data->num_childs] == -1)
-			ft_error(NULL);
-		else if (data->pid[data->num_childs] == 0)
-			executing(&data->mini_cmds[data->num_childs], pipes, index, l_type);
-		else
-			if (wait_for_child(data, data->num_childs))
-				break ;
+		else if (creat_a_child(data, pipes, i, l_type))
+			break ;
 	}
 	free(data->pid);
 	free_all(data, pipes, num_pipes);

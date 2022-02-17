@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 20:08:31 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 14:57:01 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:50:35 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	execute_builtins_cmds(t_mini_data *mini_data, int last_type)
 
 	token = grep_a_type(mini_data->token_list, CMD);
 	if (!ft_strcmp(token->tok, "echo"))
-		return ;
+		ft_echo(mini_data);
 	else if (!ft_strcmp(token->tok, "pwd"))
 		ft_pwd();
 	else if (!ft_strcmp(token->tok, "cd"))

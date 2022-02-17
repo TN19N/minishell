@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:39:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 13:37:27 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/16 09:11:07 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ char	*get_cmd_path(char *cmd, char **mini_paths)
 		cmd_path = ft_strjoin(mini_paths[i], tmp);
 		if (!access(cmd_path, F_OK))
 		{
+			ft_free(mini_paths);
 			free(tmp);
 			return (cmd_path);
 		}
 		free(cmd_path);
 	}
+	ft_free(mini_paths);
 	free(tmp);
 	return (NULL);
 }

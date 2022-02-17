@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:11:07 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/16 07:32:15 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/17 10:38:24 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ int	is_here(char c, char *str)
 	return (0);
 }
 
-void	check_if_token_full(t_token **token, int *last_type)
+void	check_if_token_full(t_token **token)
 {
 	if ((*token)->type != NONE)
 	{
-		last_type[0] = (*token)->type;
 		(*token)->next = token_init((*token)->data);
+		(*token)->next->last_type = (*token)->type;
 		(*token) = (*token)->next;
 	}
 }

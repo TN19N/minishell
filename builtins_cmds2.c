@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:20:52 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 20:32:47 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/16 08:56:54 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	**alloc_new_env(t_token *head, int *tmp)
 	{
 		if (head->type == ARGS)
 		{
-			if(!ft_is_valid(head->tok))
+			if (!ft_is_valid(head->tok))
 			{
 				ft_unset_err(head->tok);
 				g_data.errsv = 1;

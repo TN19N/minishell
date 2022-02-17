@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 20:30:57 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/17 11:09:39 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	start(t_data *data)
 	// 	while (token)
 	// 	{
 	// 		printf("\t[%s]\t", token->tok);
+	// 		printf("\t{%d}\t", token->linker);
 	// 		if (token->type == CMD)
 	// 			printf("(CMD)\n");
 	// 		else if (token->type == ARGS)
@@ -58,11 +59,19 @@ void	start(t_data *data)
 	// 			printf("REDIRECT_OUT\n");
 	// 		else if (token->type == REDIRECT_IN)
 	// 			printf("REDIRECT_IN\n");
+	// 		else if (token->type == WORD)
+	// 			printf("WORD\n");
+	// 		else if (token->type == DOUBLE_QUOTE)
+	// 			printf("DOUBLE_QUOTE\n");
+	// 		else if (token->type == SINGLE_QUOTE)
+	// 			printf("SINGLE_QUOTE\n");
 	// 		token = token->next;
 	// 	}
+	// 	printf("\n");
 	// }
 	start_executing(data);
 }
+
 void	get_cmd_line(void)
 {
 	while (1337)
@@ -94,8 +103,8 @@ void	edit_attr(void)
 
 char	**copy_env(char **env)
 {
-	int	tmp_count;
-	char **tmp_env;
+	int		tmp_count;
+	char	**tmp_env;
 
 	tmp_count = 0;
 	while (env[tmp_count])
@@ -121,7 +130,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	edit_attr ();
+	edit_attr();
 	g_data.first_pwd = 0;
 	g_data.errsv = 0;
 	g_data.my_env = copy_env(env);

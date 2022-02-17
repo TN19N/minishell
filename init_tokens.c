@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:12:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/14 20:23:51 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/17 11:10:28 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ void	replace_env_ver(char **tok, int i, int j)
 	else if (!ft_strcmp(env_ver, "$"))
 		env_value = ft_itoa(getpid());
 	else
-		env_value = get_full_path(env_ver);
+		env_value = ft_strdup(get_full_path(env_ver));
 	free(env_ver);
 	tmp = ft_substr(*tok, 0, j - 1);
 	if (env_value)
 	{
 		env_ver = tmp;
 		tmp = ft_strjoin(tmp, env_value);
+		free(env_value);
 		free(env_ver);
 	}
 	env_ver = ft_substr(*tok, i, ft_strlen(*tok) - i);
@@ -66,61 +67,61 @@ void	handl_env_ver(char **tok)
 	}
 }
 
-void	check_syntax_error(t_token **token, int *last_type, int type)
+void	check_syntax_error(t_token **t)
 {
-	if (last_type[0] == REDIRECT_IN || last_type[0] == REDIRECT_OUT || \
-	last_type[0] == REDIRECT_OUT_APP || last_type[0] == HERE_DOC)
+	if ((*t)->last_type == REDIRECT_IN || (*t)->last_type == REDIRECT_OUT || \
+	(*t)->last_type == REDIRECT_OUT_APP || (*t)->last_type == HERE_DOC)
 	{
-		if (type == REDIRECT_IN)
+		if ((*t)->type == REDIRECT_IN)
 			ft_putendl_fd("minishell: syntax error \
 near unexpected token `<'", 2);
-		else if (type == REDIRECT_OUT)
+		else if ((*t)->type == REDIRECT_OUT)
 			ft_putendl_fd("minishell: syntax error \
 near unexpected token `>'", 2);
-		else if (type == REDIRECT_OUT_APP)
+		else if ((*t)->type == REDIRECT_OUT_APP)
 			ft_putendl_fd("minishell: syntax error \
 near unexpected token `>>'", 2);
-		else if (type == HERE_DOC)
+		else if ((*t)->type == HERE_DOC)
 			ft_putendl_fd("minishell: syntax error \
 near unexpected token `<<'", 2);
 		g_data.errsv = 258;
-		free_all((*token)->data, NULL, 0);
+		free_all((*t)->data, NULL, 0);
 		get_cmd_line();
 	}
-	else
-		(*token)->type = type;
 }
 
-void	specefec_name(t_token **token, int *last_type)
+void	specefec_name(t_token **token, int *first_cmd)
 {
-	if (last_type[0] == NONE)
+	if ((*token)->last_type == NONE)
 	{
-		last_type[1] = 1;
+		*first_cmd = 1;
 		(*token)->type = CMD;
 	}
-	else if (last_type[0] == REDIRECT_IN)
+	else if ((*token)->last_type == REDIRECT_IN)
 		(*token)->type = IN_FILE;
-	else if (last_type[0] == REDIRECT_OUT)
+	else if ((*token)->last_type == REDIRECT_OUT)
 		(*token)->type = OUT_FILE;
-	else if (last_type[0] == HERE_DOC)
+	else if ((*token)->last_type == HERE_DOC)
 		(*token)->type = DELIMTER;
-	else if (last_type[0] == REDIRECT_OUT_APP)
+	else if ((*token)->last_type == REDIRECT_OUT_APP)
 		(*token)->type = OUT_FILE_APP;
 	else
 	{
-		if (last_type[1] == 0)
+		if (*first_cmd == 0)
+		{
 			(*token)->type = CMD;
+			*first_cmd = 1;
+		}
 		else
 			(*token)->type = ARGS;
 	}
 }
 
-void	init_tokens(t_token **token, int *last_type, int type)
+void	init_tokens(t_token **t, int *first_cmd)
 {	
-	if (type != SINGLE_QUOTE)
-		handl_env_ver(&(*token)->tok);
-	if (type == WORD || type == SINGLE_QUOTE || type == DOUBLE_QUOTE)
-		specefec_name(token, last_type);
+	if ((*t)->type == WORD || (*t)->type == SINGLE_QUOTE || \
+	(*t)->type == DOUBLE_QUOTE)
+		specefec_name(t, first_cmd);
 	else
-		check_syntax_error(token, last_type, type);
+		check_syntax_error(t);
 }

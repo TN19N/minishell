@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 17:20:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 17:04:11 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/16 16:03:49 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,5 @@ int	wait_for_child(t_data *data, int i)
 		data->errsv = 130;
 	else
 		data->errsv = WEXITSTATUS(returned);
-	if (data->mini_cmds[i].type == ORLOG && returned == 0)
-		return (1);
-	else if (data->mini_cmds[i].type == ANDLOG && returned != 0)
-		return (1);
-	return (0);
+	return (check_to_stop(data, data->num_childs));
 }
