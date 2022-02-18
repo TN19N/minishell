@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/17 10:52:52 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/18 14:02:55 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # define WRITE 1
 
 # define PIPE 1
-# define ANDLOG 2
-# define ORLOG 3
 # define LASTONE 4
 
 # define NONE 1
@@ -114,7 +112,7 @@ void	get_cmd_paths(t_mini_data *mini_data, char **cmd_path, char ***c_args);
 int		here_doc(t_mini_data *mini_data, int *her_pipe);
 int		get_pipes(t_data *data, int ***pipes);
 void	creat_files(t_token *token, int *fd, int *num_fd);
-int		wait_for_child(t_data *data, int i);
+void	wait_for_child(t_data *data);
 void	free_all(t_data *data, int **pipes, int count);
 void	set_signals(void);
 int		if_builtins_cmds(t_mini_data *mini_data);
@@ -123,7 +121,7 @@ void	ft_env(void);
 int		ft_check(t_token *head, char *env);
 int		ft_is_valid(char *s);
 int		ft_is_in(char *s);
-void	execute_builtins_cmds(t_mini_data *mini_data, int last_type);
+void	execute_builtins_cmds(t_mini_data *mini_data);
 void	ft_unset(t_mini_data *mini_data);
 void	ft_pwd(void);
 void	ft_unset_err(char *s);
@@ -134,7 +132,7 @@ void	ft_exit(void);
 void	ft_pwd(void);
 void	ft_unset(t_mini_data *l);
 void	edit_attr(void);
-void	ft_unset_err(char *s);
+void	ft_unset_export_err(char *s, int i);
 void	check_syntax(t_data *data);
 void	set_hd_and_f(t_mini_data *mini_data, int *fd_files, int *her_pipe);
 void	set_reder(t_mini_data *mini_data, int **pipes, int l_type, int index);
@@ -152,5 +150,6 @@ void	handl_env_ver(char **tok);
 void	combine_the_words(t_token *token);
 int		handl_singl_things(int *i, char *cmd_line, int tmp, char c);
 void	update_my_tokens(t_mini_data *mini_cmd);
+void	ft_export(t_mini_data *mini_data);
 
 #endif

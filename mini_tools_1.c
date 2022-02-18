@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:11:07 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/17 10:38:24 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/18 18:00:36 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ void	handler(int sig)
 	rl_redisplay();
 	while (i < g_data.num_childs)
 	{
-		if (g_data.pid[i] != -1337)
-			kill(g_data.pid[i], SIGTERM);
+		kill(g_data.pid[i], SIGTERM);
 		i++;
 	}
 	g_data.errsv = 1;

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 17:20:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/16 16:03:49 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/18 13:33:56 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,19 @@ void	creat_files(t_token *token, int *fd, int *num_fd)
 	}
 }
 
-int	wait_for_child(t_data *data, int i)
+void	wait_for_child(t_data *data)
 {
+	int	i;
 	int	returned;
 
-	waitpid(data->pid[i], &returned, 0);
-	if (WIFSIGNALED(returned))
-		data->errsv = 130;
-	else
-		data->errsv = WEXITSTATUS(returned);
-	return (check_to_stop(data, data->num_childs));
+	i = 0;
+	while (i < data->num_childs)
+	{
+		waitpid(data->pid[i], &returned, 0);
+		if (WIFSIGNALED(returned))
+			data->errsv = 130;
+		else
+			data->errsv = WEXITSTATUS(returned);
+		i++;
+	}
 }

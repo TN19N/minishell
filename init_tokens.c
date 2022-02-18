@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:12:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/17 11:10:28 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/18 20:00:11 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	handl_env_ver(char **tok)
 		{
 			i++;
 			j = i;
-			while ((*tok)[i] && (ft_isalnum((*tok)[i]) || (*tok)[i] == '?'))
+			while ((*tok)[i] && (ft_isalnum((*tok)[i]) || is_here((*tok)[i] , "?_")))
 				i++;
 			if (j != i || ((*tok)[i] == '$' && (*tok)[i - 1] == '$'))
 			{

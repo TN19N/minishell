@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:20:52 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/16 08:56:54 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/18 18:41:01 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ int	ft_is_valid(char *s)
 	int	i;
 
 	i = 0;
-	if (!ft_isalpha (s[i]))
+	if (!ft_isalpha (s[i]) || s[i] == '_')
 	{
 		g_data.errsv = 1;
 		return (0);
 	}
 	while (s[++i])
 	{
-		if (!ft_isalnum(s[i]))
+		if (!ft_isalnum(s[i]) || s[i] == '_')
 		{
 			g_data.errsv = 1;
 			return (0);
@@ -84,7 +84,7 @@ char	**alloc_new_env(t_token *head, int *tmp)
 		{
 			if (!ft_is_valid(head->tok))
 			{
-				ft_unset_err(head->tok);
+				ft_unset_export_err(head->tok, 1);
 				g_data.errsv = 1;
 			}
 			if (ft_is_in(head->tok))

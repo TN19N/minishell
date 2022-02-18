@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 20:06:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/16 16:13:17 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/18 13:59:36 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,4 @@ void	dup_all_files(t_mini_data *mini_data, int *fd)
 			dup2(fd[i--], STDOUT_FILENO);
 		token = token->next;
 	}
-}
-
-int	check_returnes(int type)
-{
-	if (type == ORLOG && g_data.errsv == 0)
-		return (1);
-	else if (type == ANDLOG && g_data.errsv != 0)
-		return (1);
-	else
-		return (0);
 }

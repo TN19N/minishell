@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:45:57 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/16 15:56:39 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/18 16:58:28 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_echo(t_mini_data *mini_data)
 	t_token	*token;
 
 	first = 0;
+	g_data.errsv = 0;
 	token = grep_a_type(mini_data->token_list, CMD);
 	if (mini_data->token_list->next)
 		token = mini_data->token_list->next;

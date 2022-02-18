@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:11:28 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/15 18:09:56 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/18 13:36:21 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ void	check_syntax_errors(t_mini_data *mini_data)
 		if (mini_data->type == PIPE)
 			ft_putendl_fd("minishell: syntax error near \
 unexpected token `|\'", 2);
-		else if (mini_data->type == ANDLOG)
-			ft_putendl_fd("minishell: syntax error near \
-unexpected token `&&\'", 2);
-		else if (mini_data->type == ORLOG)
-			ft_putendl_fd("minishell: syntax error near \
-unexpected token `||\'", 2);
 		g_data.errsv = 258;
 		free_all(mini_data->data, NULL, 0);
 		get_cmd_line();
@@ -37,9 +31,12 @@ void	no_home_for_cd(void)
 	g_data.errsv = 1;
 }
 
-void	ft_unset_err(char *s)
+void	ft_unset_export_err(char *s, int i)
 {
-	ft_putstr_fd("minishell: unset: `", 2);
+	if (i == 1)
+		ft_putstr_fd("minishell: unset: `", 2);
+	else
+		ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd (s, 2);
 	ft_putendl_fd ("': not a valid identifier", 2);
 }

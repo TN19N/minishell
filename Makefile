@@ -6,7 +6,7 @@
 #    By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/14 14:18:57 by mannouao          #+#    #+#              #
-#    Updated: 2022/02/17 10:49:16 by mannouao         ###   ########.fr        #
+#    Updated: 2022/02/18 13:21:50 by mannouao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS = minishell.c \
 		cd_cmd.c \
 		mini_tools_5.c \
 		echo_cmd.c \
-		mini_tools_6.c
+		mini_tools_6.c \
+		export.c
 
 LIBFT_PATH = libft/libft.a
 OBJS = $(SRCS:.c=.o)

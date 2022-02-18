@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 10:25:14 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/17 10:53:41 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/18 16:55:39 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,6 @@ int	*open_files(t_mini_data *mini_data)
 		token = token->next;
 	}
 	return (fd);
-}
-
-int	check_to_stop(t_data *data, int index)
-{
-	if (data->mini_cmds[index].type == ORLOG && g_data.errsv == 0)
-		return (1);
-	else if (data->mini_cmds[index].type == ANDLOG && g_data.errsv != 0)
-		return (1);
-	return (0);
 }
 
 void	init_to_start(t_data *data, int	***pipes, int *num_pipes, int *l_type)
