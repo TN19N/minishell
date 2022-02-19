@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:26:39 by hnaciri-          #+#    #+#             */
-/*   Updated: 2022/02/18 18:34:52 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/19 07:56:30 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_grep(char *s)
 	while (s[i] != '=')
 		i++;
 	temp = ft_calloc(sizeof(char), i + 1);
-	if (temp)
+	if (!temp)
 		ft_error(NULL);
 	i = -1;
 	while (s[++i] != '=')
@@ -87,6 +87,8 @@ void	export_old(char **new_env, t_token *token, t_mini_data *mini_data)
 
 	token = mini_data->token_list->next;
 	new_env = ft_calloc (sizeof(char *), g_data.count + 1);
+	if (!new_env)
+		ft_error(NULL);
 	while (token)
 	{
 		i = ft_grep (token->tok);
