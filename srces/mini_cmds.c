@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 11:15:35 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/18 13:24:23 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:38:59 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	get_number_of_cmds(t_data *data)
 {

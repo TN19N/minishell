@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:39:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/19 10:54:00 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:38:49 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 char	*get_cmd_path(char *cmd, char **mini_paths)
 {

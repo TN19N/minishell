@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 10:25:14 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 18:03:50 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:39:21 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	ft_free(char **array)
 {

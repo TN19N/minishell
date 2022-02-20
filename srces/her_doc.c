@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 12:45:01 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 17:57:03 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:38:51 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	read_line(int *her_pipe, t_token *token)
 {

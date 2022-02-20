@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 17:05:25 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/17 10:52:41 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 21:10:34 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 t_token	*token_init(t_data *data)
 {

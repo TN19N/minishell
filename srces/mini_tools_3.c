@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 20:08:31 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 09:48:19 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:39:13 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	free_2d_arry(int **arry, int len)
 {

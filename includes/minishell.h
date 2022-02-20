@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 20:15:14 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 21:17:46 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define WORD 14
 
 # include <fcntl.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -89,6 +89,7 @@ typedef struct s_data
 	t_mini_data	*mini_cmds;
 }				t_data;
 
+void	rl_replace_line(const char *text, int clear_undo);
 void	ft_error(char *str);
 void	execute(char **cmd_line, int **fd, int i, int num_cmd);
 void	handler(int sig);

@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 20:06:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 20:16:48 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:39:17 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	check_syntax(t_data *data)
 {

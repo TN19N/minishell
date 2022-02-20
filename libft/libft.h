@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:02:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/13 09:40:40 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 21:15:34 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include "../minishell.h"
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
+# include "../includes/minishell.h"
 
 //#1
 int		ft_atoi(const char *str);
@@ -61,17 +55,5 @@ char	*ft_strjoin(const char *s1, char const *s2);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-
-//#bonus
-int		ft_lstsize(t_list *lst);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-t_list	*ft_lstnew(void *countent);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

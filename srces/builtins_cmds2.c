@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:20:52 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/19 14:53:38 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:38:32 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int	ft_check(t_token *head, char *env)
 {

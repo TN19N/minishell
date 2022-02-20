@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:40:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/16 08:53:47 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:38:36 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int	grep_pwd(char *s)
 {

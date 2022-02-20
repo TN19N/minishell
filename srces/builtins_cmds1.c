@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 09:31:41 by hnaciri-          #+#    #+#             */
-/*   Updated: 2022/02/19 15:07:17 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:38:21 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 unsigned long long	my_atoi(char *s)
 {

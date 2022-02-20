@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 17:20:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 14:50:58 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:39:10 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int	number_of_types(t_mini_data *mini_data, int type)
 {

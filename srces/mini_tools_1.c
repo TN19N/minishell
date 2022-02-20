@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:11:07 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/18 18:00:36 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:39:07 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 char	*get_full_path(char *to_find)
 {

@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:12:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 08:39:24 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:38:55 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	replace_env_ver(char **tok, int i, int j)
 {

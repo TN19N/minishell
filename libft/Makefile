@@ -6,7 +6,7 @@
 #    By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/04 13:13:57 by mannouao          #+#    #+#              #
-#    Updated: 2022/02/01 10:38:43 by mannouao         ###   ########.fr        #
+#    Updated: 2022/02/20 21:16:14 by mannouao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,17 +48,8 @@ SRCS = ft_atoi.c \
 		ft_toupper.c\
 		ft_strlcat.c\
 		ft_strncmp.c
-BONUS =	ft_lstadd_back.c\
-		ft_lstadd_front.c\
-		ft_lstclear.c\
-		ft_lstdelone.c\
-		ft_lstlast.c\
-		ft_lstiter.c\
-		ft_lstnew.c\
-		ft_lstsize.c\
-		ft_lstmap.c
+
 OBJS = $(SRCS:.c=.o)
-BONUS_OBJS = $(BONUS:.c=.o)
 GCC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
@@ -66,19 +57,15 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	
-
-bonus: $(BONUS_OBJS)
-	
-
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -I .
-	@ar rcs $(NAME) $@
+	$(CC) $(CFLAGS) -c $< -I .
+	ar rcs $(NAME) $@
 	
 
 clean:
-	@rm -f $(OBJS) $(BONUS_OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
