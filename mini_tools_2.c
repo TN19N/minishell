@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 17:20:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/19 09:59:13 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 14:50:58 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,27 @@ int	get_pipes(t_data *data, int ***pipes)
 	return (count);
 }
 
-void	creat_files(t_token *token, int *fd, int *num_fd)
+void	creat_files(t_token *token, int *fd, int *i)
 {
 	int	error;
 
 	error = 0;
 	if (token->type == OUT_FILE)
 	{
-		fd[*num_fd] = open(token->tok, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		fd[*i] = open(token->tok, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		error = 1;
 	}
 	else if (token->type == IN_FILE)
 	{
-		fd[*num_fd] = open(token->tok, O_RDONLY | O_EXCL);
+		fd[*i] = open(token->tok, O_RDONLY | O_EXCL);
 		error = 1;
 	}
 	else if (token->type == OUT_FILE_APP)
 	{
-		fd[*num_fd] = open(token->tok, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		fd[*i] = open(token->tok, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		error = 1;
 	}
-	if (error == 1 && fd[(*num_fd)--] == -1)
+	if (error == 1 && fd[(*i)++] == -1)
 	{
 		g_data.errsv = 1;
 		ft_error(token->tok);

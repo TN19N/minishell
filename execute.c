@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 09:57:53 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 15:06:31 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_for_child(int *index, int *last_type, t_data *data, int **pipes)
 	if (*last_type == PIPE && data->num_childs != 0)
 	{
 		(*index)++;
+		fprintf(stderr, "close pipe[%d][WRITE] in main process\n", *index - 1);
 		close(pipes[*index - 1][WRITE]);
 	}
 }
@@ -47,8 +48,8 @@ void	b_cmds(t_mini_data *mini_data, int **pipes, int index, int l_type)
 {
 	int		*fd_files;
 
-	g_data.save_in = dup(STDIN_FILENO);
 	g_data.save_out = dup(STDOUT_FILENO);
+	g_data.save_in = dup(STDIN_FILENO);
 	g_data.fack_out = g_data.save_out;
 	g_data.fack_in = g_data.save_in;
 	fd_files = open_files(mini_data);
@@ -79,8 +80,13 @@ void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 			else
 				exec(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
 		}
+		sleep(1);
 		if (data->num_childs >= 1)
+		{
+			fprintf(stderr, "close pipe[%d][READ] in main process\n", *i - 1);
 			close(pipes[*i - 1][READ]);
+		}
+		sleep(1);
 		data->num_childs++;
 	}
 	wait_for_child(data);

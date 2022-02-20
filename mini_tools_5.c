@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 10:25:14 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 08:42:12 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 14:50:06 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	*open_files(t_mini_data *mini_data)
 	int		num_fd;
 	int		*fd;
 	t_token	*token;
+	int		i;
 
 	num_fd = number_of_types(mini_data, OUT_FILE);
 	num_fd += number_of_types(mini_data, IN_FILE);
@@ -39,11 +40,12 @@ int	*open_files(t_mini_data *mini_data)
 	fd = malloc(sizeof(int) * (num_fd + 1));
 	if (!fd)
 		ft_error(NULL);
-	fd[num_fd--] = -1;
+	fd[num_fd] = -1;
 	token = mini_data->token_list;
+	i = 0;
 	while (token)
 	{
-		creat_files(token, fd, &num_fd);
+		creat_files(token, fd, &i);
 		token = token->next;
 	}
 	return (fd);

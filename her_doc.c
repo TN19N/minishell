@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 12:45:01 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/19 14:33:14 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 15:23:30 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,13 @@ int	here_doc(t_token *token)
 {
 	int	her_pipe[2];
 
-	if (token->type == HERE_DOC)
-	{
-		dup2(g_data.save_out, STDOUT_FILENO);
-		dup2(g_data.save_in, STDIN_FILENO);
-		read_line(her_pipe, token);
-		dup2(g_data.fack_out, STDOUT_FILENO);
-		dup2(g_data.fack_in, STDIN_FILENO);
-		dup2(her_pipe[READ], STDIN_FILENO);
-		g_data.fack_in = her_pipe[READ];
-	}
+	dup2(g_data.save_out, STDOUT_FILENO);
+	dup2(g_data.save_in, STDIN_FILENO);
+	read_line(her_pipe, token);
+	dup2(g_data.fack_out, STDOUT_FILENO);
+	dup2(g_data.fack_in, STDIN_FILENO);
+	fprintf(stderr, "dup input with pipe her_pipe[READ] in cmd (%s)", token->tok);
+	dup2(her_pipe[READ], STDIN_FILENO);
+	g_data.fack_in = her_pipe[READ];
 	return (0);
 }
