@@ -6,13 +6,13 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 08:12:00 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 08:38:05 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	executing(t_mini_data *mini_data, int **pipes, int index, int last_type)
+void	exec(t_mini_data *mini_data, int **pipes, int index, int last_type)
 {
 	char	*cmd_path;
 	char	**cmd_args;
@@ -43,7 +43,7 @@ void	init_for_child(int *index, int *last_type, t_data *data, int **pipes)
 	}
 }
 
-void	s_exec_b_cmds(t_mini_data *mini_data, int **pipes, int index, int last_type)
+void	b_cmds(t_mini_data *mini_data, int **pipes, int index, int l_type)
 {
 	int		*fd_files;
 
@@ -52,7 +52,7 @@ void	s_exec_b_cmds(t_mini_data *mini_data, int **pipes, int index, int last_type
 	g_data.fack_out = g_data.save_out;
 	g_data.fack_in = g_data.save_in;
 	fd_files = open_files(mini_data);
-	set_reder(mini_data, pipes, last_type, index);
+	set_reder(mini_data, pipes, l_type, index);
 	set_hd_and_f(mini_data, fd_files);
 	execute_builtins_cmds(mini_data);
 	dup2(g_data.save_in, STDIN_FILENO);
@@ -73,11 +73,11 @@ void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 		{
 			if (!if_builtins_cmds(&data->mini_cmds[data->num_childs]))
 			{
-				s_exec_b_cmds(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
+				b_cmds(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
 				exit(g_data.errsv);
 			}
 			else
-				executing(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
+				exec(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
 		}
 		if (data->num_childs >= 1)
 			close(pipes[*i - 1][READ]);
@@ -98,7 +98,7 @@ void	start_executing(t_data *data)
 	init_to_start(data, &pipes, &num_pipes, &l_type);
 	if (!if_builtins_cmds(&data->mini_cmds[data->num_childs]) && \
 	data->mini_cmds[data->num_childs].type != PIPE)
-		s_exec_b_cmds(&data->mini_cmds[data->num_childs], pipes, i, l_type);
+		b_cmds(&data->mini_cmds[data->num_childs], pipes, i, l_type);
 	else
 		creat_childernes(data, &i, &l_type, pipes);
 	free(data->pid);

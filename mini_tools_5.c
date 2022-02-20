@@ -6,11 +6,24 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 10:25:14 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/18 16:55:39 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 08:42:12 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_free(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
 
 int	*open_files(t_mini_data *mini_data)
 {

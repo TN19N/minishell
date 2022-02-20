@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/19 14:50:15 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 08:42:28 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	get_cmd_line(void)
 		}
 		if (ft_strlen(g_data.cmd_line) > 0)
 		{
-			
 			add_history(g_data.cmd_line);
 			if (if_just_spaces(g_data.cmd_line))
 				free(g_data.cmd_line);
