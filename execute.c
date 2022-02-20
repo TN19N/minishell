@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 15:06:31 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 16:28:47 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ void	b_cmds(t_mini_data *mini_data, int **pipes, int index, int l_type)
 
 void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 {
+	int	k;
+
+	k = 0;
 	while (data->num_childs < data->num_cmds)
 	{
 		init_for_child(i, l_type, data, pipes);
@@ -80,15 +83,13 @@ void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 			else
 				exec(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
 		}
-		sleep(1);
-		if (data->num_childs >= 1)
-		{
-			fprintf(stderr, "close pipe[%d][READ] in main process\n", *i - 1);
-			close(pipes[*i - 1][READ]);
-		}
-		sleep(1);
+		// if (data->num_childs >= 1)
+		// {
+		// 	fprintf(stderr, "close pipe[%d][READ] in main process\n", *i - 1);
+		// 	close(pipes[*i - 1][READ]);
+		// }
 		data->num_childs++;
-	}
+	}	
 	wait_for_child(data);
 }
 

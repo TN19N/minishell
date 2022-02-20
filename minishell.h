@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/19 14:49:44 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 16:22:45 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct s_mini_data
 {
 	int		type;
 	char	*all_cmd;
+	int		mega_out_put;
+	int		mega_in_put;
 	t_token	*token_list;
 	t_data	*data;
 }			t_mini_data;

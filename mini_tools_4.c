@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 20:06:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 15:20:38 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 16:32:32 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,14 @@ void	set_reder(t_mini_data *mini_data, int **pipes, int last_type, int index)
 		fprintf(stderr, "dup out_put with pipe[%d][WRITE] in cmd (%s)\n", index, mini_data->all_cmd);
 		dup2(pipes[index][WRITE], STDOUT_FILENO);
 		g_data.fack_out = pipes[index][WRITE];
+		fprintf(stderr, "put in fack_out = %d in cmd (%s)\n", g_data.fack_out, mini_data->all_cmd);
 	}
 	if (last_type == PIPE)
 	{
 		fprintf(stderr, "dup in_put with pipe[%d][READ] in cmd (%s)\n", index - 1, mini_data->all_cmd);
 		dup2(pipes[index - 1][READ], STDIN_FILENO);
 		g_data.fack_in = pipes[index - 1][READ];
+		fprintf(stderr, "put in fack_in = %d in cmd (%s)\n", g_data.fack_out, mini_data->all_cmd);
 	}
 }
 
