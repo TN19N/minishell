@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 16:22:45 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 18:45:11 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,15 @@ typedef struct s_mini_data
 {
 	int		type;
 	char	*all_cmd;
-	int		mega_out_put;
-	int		mega_in_put;
+	int		last_herdoc;
+	int		last_out_file;
+	int		last_in_file;
 	t_token	*token_list;
 	t_data	*data;
 }			t_mini_data;
 
 typedef struct s_data
 {
-	int			fack_out;
-	int			fack_in;
 	int			save_in;
 	int			save_out;
 	int			first_pwd;
@@ -112,7 +111,7 @@ void	start_executing(t_data *data);
 int		number_of_types(t_mini_data *mini_data, int type);
 void	start_executing(t_data *data);
 void	get_cmd_paths(t_mini_data *mini_data, char **cmd_path, char ***c_args);
-int		here_doc(t_token *token);
+int		here_doc(t_token *token, t_mini_data *mini_data);
 int		get_pipes(t_data *data, int ***pipes);
 void	creat_files(t_token *token, int *fd, int *num_fd);
 void	wait_for_child(t_data *data);
@@ -153,5 +152,7 @@ void	combine_the_words(t_token *token);
 int		handl_singl_things(int *i, char *cmd_line, int tmp, char c);
 void	update_my_tokens(t_mini_data *mini_cmd);
 void	ft_export(t_mini_data *mini_data);
+void	active_all_heredoc(t_data *data);
+void 	open_all_files(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 16:28:47 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 18:42:36 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,10 @@ void	exec(t_mini_data *mini_data, int **pipes, int index, int last_type)
 	int		*fd_files;
 
 	cmd_path = NULL;
-	g_data.save_out = dup(STDOUT_FILENO);
-	g_data.save_in = dup(STDIN_FILENO);
-	g_data.fack_out = g_data.save_out;
-	g_data.fack_in = g_data.save_in;
 	fd_files = open_files(mini_data);
 	set_reder(mini_data, pipes, last_type, index);
 	set_hd_and_f(mini_data, fd_files);
 	get_cmd_paths(mini_data, &cmd_path, &cmd_args);
-	close(g_data.save_out);
 	if (execve(cmd_path, cmd_args, g_data.my_env) == -1)
 		ft_error(NULL);
 }
@@ -39,7 +34,6 @@ void	init_for_child(int *index, int *last_type, t_data *data, int **pipes)
 	if (*last_type == PIPE && data->num_childs != 0)
 	{
 		(*index)++;
-		fprintf(stderr, "close pipe[%d][WRITE] in main process\n", *index - 1);
 		close(pipes[*index - 1][WRITE]);
 	}
 }
@@ -50,8 +44,6 @@ void	b_cmds(t_mini_data *mini_data, int **pipes, int index, int l_type)
 
 	g_data.save_out = dup(STDOUT_FILENO);
 	g_data.save_in = dup(STDIN_FILENO);
-	g_data.fack_out = g_data.save_out;
-	g_data.fack_in = g_data.save_in;
 	fd_files = open_files(mini_data);
 	set_reder(mini_data, pipes, l_type, index);
 	set_hd_and_f(mini_data, fd_files);
@@ -62,11 +54,72 @@ void	b_cmds(t_mini_data *mini_data, int **pipes, int index, int l_type)
 	close(g_data.save_out);
 }
 
+int	open_files_before(t_token *token)
+{
+	int	fd;
+
+	if (token->type == OUT_FILE)
+		fd = open(token->tok, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (token->type == IN_FILE)
+		fd = open(token->tok, O_RDONLY | O_EXCL);
+	else 
+		fd = open(token->tok, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == -1)
+		return (1);
+	else
+		close(fd);
+	return (0);
+}
+
+void open_all_files(t_data *data)
+{
+	
+	t_token *token;
+	int i;
+
+	i = 0;
+	while (i < data->num_cmds)
+	{
+		data->mini_cmds[i].last_herdoc = -1;
+		token = data->mini_cmds[i].token_list;
+		while (token)
+		{
+			if (token->type == IN_FILE || token->type == OUT_FILE \
+			|| token->type == OUT_FILE_APP)
+				open_files_before(token);
+			token = token->next;
+		}
+		i++;
+	}
+}
+
+void	active_all_heredoc(t_data *data)
+{
+	t_token *token;
+	int i;
+
+	i = 0;
+	while (i < data->num_cmds)
+	{
+		data->mini_cmds[i].last_herdoc = -1;
+		token = data->mini_cmds[i].token_list;
+		while (token)
+		{
+			if (token->type == HERE_DOC)
+				here_doc(token, &data->mini_cmds[i]);
+			token = token->next;
+		}
+		i++;
+	}
+}
+
 void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 {
 	int	k;
 
 	k = 0;
+	active_all_heredoc(data);
+	open_all_files(data);
 	while (data->num_childs < data->num_cmds)
 	{
 		init_for_child(i, l_type, data, pipes);
@@ -83,13 +136,10 @@ void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 			else
 				exec(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
 		}
-		// if (data->num_childs >= 1)
-		// {
-		// 	fprintf(stderr, "close pipe[%d][READ] in main process\n", *i - 1);
-		// 	close(pipes[*i - 1][READ]);
-		// }
+		if (data->num_childs >= 1)
+			close(pipes[*i - 1][READ]);
 		data->num_childs++;
-	}	
+	}
 	wait_for_child(data);
 }
 
