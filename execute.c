@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 18:42:36 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:16:31 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,72 +54,10 @@ void	b_cmds(t_mini_data *mini_data, int **pipes, int index, int l_type)
 	close(g_data.save_out);
 }
 
-int	open_files_before(t_token *token)
-{
-	int	fd;
-
-	if (token->type == OUT_FILE)
-		fd = open(token->tok, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (token->type == IN_FILE)
-		fd = open(token->tok, O_RDONLY | O_EXCL);
-	else 
-		fd = open(token->tok, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd == -1)
-		return (1);
-	else
-		close(fd);
-	return (0);
-}
-
-void open_all_files(t_data *data)
-{
-	
-	t_token *token;
-	int i;
-
-	i = 0;
-	while (i < data->num_cmds)
-	{
-		data->mini_cmds[i].last_herdoc = -1;
-		token = data->mini_cmds[i].token_list;
-		while (token)
-		{
-			if (token->type == IN_FILE || token->type == OUT_FILE \
-			|| token->type == OUT_FILE_APP)
-				open_files_before(token);
-			token = token->next;
-		}
-		i++;
-	}
-}
-
-void	active_all_heredoc(t_data *data)
-{
-	t_token *token;
-	int i;
-
-	i = 0;
-	while (i < data->num_cmds)
-	{
-		data->mini_cmds[i].last_herdoc = -1;
-		token = data->mini_cmds[i].token_list;
-		while (token)
-		{
-			if (token->type == HERE_DOC)
-				here_doc(token, &data->mini_cmds[i]);
-			token = token->next;
-		}
-		i++;
-	}
-}
-
 void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 {
-	int	k;
-
-	k = 0;
+	active_all_files(data);
 	active_all_heredoc(data);
-	open_all_files(data);
 	while (data->num_childs < data->num_cmds)
 	{
 		init_for_child(i, l_type, data, pipes);

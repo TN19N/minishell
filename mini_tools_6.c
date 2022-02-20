@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:47:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 18:44:46 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:18:21 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	open_files_before(t_token *token)
 		fd = open(token->tok, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (token->type == IN_FILE)
 		fd = open(token->tok, O_RDONLY | O_EXCL);
-	else 
+	else
 		fd = open(token->tok, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 		return (1);
@@ -65,11 +65,10 @@ int	open_files_before(t_token *token)
 	return (0);
 }
 
-void open_all_files(t_data *data)
+void	active_all_files(t_data *data)
 {
-	
-	t_token *token;
-	int i;
+	t_token	*token;
+	int		i;
 
 	i = 0;
 	while (i < data->num_cmds)
@@ -89,8 +88,8 @@ void open_all_files(t_data *data)
 
 void	active_all_heredoc(t_data *data)
 {
-	t_token *token;
-	int i;
+	t_token	*token;
+	int		i;
 
 	i = 0;
 	while (i < data->num_cmds)

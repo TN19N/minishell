@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 15:01:17 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/20 20:20:17 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,12 @@
 
 void	start(t_data *data)
 {
-	int i;
-	//t_token *token;
+	int	i;
 
 	i = -1;
 	get_mini_cmds(data);
 	while (++i < data->num_cmds)
 		get_tokens(data->mini_cmds[i].all_cmd, &data->mini_cmds[i]);
-	// i = -1;
-	// printf("number of comds is : %d\n", data->num_cmds);
-	// while (++i < data->num_cmds)
-	// {
-	// 	printf("(%s):\t", data->mini_cmds[i].all_cmd);
-	// 	if (data->mini_cmds[i].type == PIPE)
-	// 		printf("{PIPE}\n");
-	// 	else if (data->mini_cmds[i].type == LASTONE)
-	// 		printf("{LASTONE}\n");
-	// 	token = data->mini_cmds[i].token_list;
-	// 	while (token)
-	// 	{
-	// 		printf("\t[%s]\t", token->tok);
-	// 		if (token->type == CMD)
-	// 			printf("(CMD)\n");
-	// 		else if (token->type == ARGS)
-	// 			printf("(ARGS)\n");
-	// 		else if (token->type == OUT_FILE_APP)
-	// 			printf("(OUT_FILE_APP)\n");
-	// 		else if (token->type == OUT_FILE)
-	// 			printf("(OUT_FILE)\n");
-	// 		else if (token->type == IN_FILE)
-	// 			printf("(IN_FILE)\n");
-	// 		else if (token->type == HERE_DOC)
-	// 			printf("(HERE_DOC)\n");
-	// 		else if (token->type == DELIMTER)
-	// 			printf("(DELIMITER)\n");
-	// 		else if (token->type == REDIRECT_OUT_APP)
-	// 			printf("(REDIRECT_OUT_APP)\n");
-	// 		else if (token->type == REDIRECT_OUT)
-	// 			printf("REDIRECT_OUT\n");
-	// 		else if (token->type == REDIRECT_IN)
-	// 			printf("REDIRECT_IN\n");
-	// 		token = token->next;
-	// 	}
-	// }
 	start_executing(data);
 }
 
