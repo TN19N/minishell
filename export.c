@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:26:39 by hnaciri-          #+#    #+#             */
-/*   Updated: 2022/02/19 07:56:30 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/19 18:29:18 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	ft_check_export(t_token *token)
 		return (-1);
 	while (token->tok[++i])
 	{
-		if (!ft_isalnum (token->tok[i]) && token->tok[i] != '=')
+		if (!ft_isalnum(token->tok[i])
+			&& token->tok[i] != '_' && token->tok[i] != '=')
 			return (-1);
 		if (token->tok[i] == '=')
 			break ;
@@ -65,15 +66,18 @@ void	export_new(char **new_env, t_token *token, t_mini_data *mini_data)
 {
 	int	i;
 
+	new_env = ft_calloc(sizeof(char *), g_data.count + 1);
+	if (!new_env)
+		ft_error(NULL);
 	i = -1;
 	while (g_data.my_env[++i])
 		new_env[i] = ft_strdup (g_data.my_env[i]);
 	token = mini_data->token_list->next;
 	while (token)
 	{
-		if (ft_check_export (token) && ft_check_export (token) != -1 \
+		if (ft_check_export (token) && ft_check_export(token) != -1 \
 		&& ft_grep(token->tok) == -1)
-			new_env[i++] = ft_strdup (token->tok);
+			new_env[i++] = ft_strdup(token->tok);
 		token = token->next;
 	}
 	new_env[i] = 0;
@@ -81,21 +85,18 @@ void	export_new(char **new_env, t_token *token, t_mini_data *mini_data)
 	g_data.my_env = new_env;
 }
 
-void	export_old(char **new_env, t_token *token, t_mini_data *mini_data)
+void	export_old(t_token *token, t_mini_data *mini_data)
 {
 	int	i;
 
 	token = mini_data->token_list->next;
-	new_env = ft_calloc (sizeof(char *), g_data.count + 1);
-	if (!new_env)
-		ft_error(NULL);
 	while (token)
-	{
-		i = ft_grep (token->tok);
+	{	
+		i = ft_grep(token->tok);
 		if (i != -1)
 		{
 			free (g_data.my_env[i]);
-			g_data.my_env[i] = ft_strdup (token->tok);
+			g_data.my_env[i] = ft_strdup(token->tok);
 		}
 		token = token->next;
 	}
@@ -112,7 +113,7 @@ void	ft_export(t_mini_data *mini_data)
 		return ;
 	token = mini_data->token_list->next;
 	while (token)
-	{
+	{	
 		i = ft_check_export(token);
 		if (i == -1)
 			ft_unset_export_err(token->tok, 0);
@@ -122,6 +123,6 @@ void	ft_export(t_mini_data *mini_data)
 			g_data.errsv = 1;
 		token = token->next;
 	}
-	export_old(new_env, token, mini_data);
+	export_old(token, mini_data);
 	export_new(new_env, token, mini_data);
 }

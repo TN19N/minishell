@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 12:45:01 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/16 14:40:21 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/19 14:33:14 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	read_line(int *her_pipe, t_token *token)
 		if (!ft_strcmp(line, token->next->tok))
 		{
 			free(line);
+			close(her_pipe[WRITE]);
 			break ;
 		}
 		ft_putendl_fd(line, her_pipe[WRITE]);
@@ -34,31 +35,19 @@ void	read_line(int *her_pipe, t_token *token)
 	close(her_pipe[WRITE]);
 }
 
-int	here_doc(t_mini_data *mini_data, int *her_pipe)
+int	here_doc(t_token *token)
 {
-	t_token	*token;
+	int	her_pipe[2];
 
-	her_pipe = NULL;
-	token = mini_data->token_list;
-	while (token)
+	if (token->type == HERE_DOC)
 	{
-		if (token->type == HERE_DOC)
-		{
-			if (!her_pipe)
-			{
-				free(her_pipe);
-				her_pipe = malloc(sizeof(int) * 2);
-				if (!her_pipe)
-					ft_error(NULL);
-			}
-			dup2(g_data.save_out, STDOUT_FILENO);
-			read_line(her_pipe, token);
-			dup2(g_data.save_tmp_fd, STDOUT_FILENO);
-		}
-		token = token->next;
-	}
-	if (her_pipe)
+		dup2(g_data.save_out, STDOUT_FILENO);
+		dup2(g_data.save_in, STDIN_FILENO);
+		read_line(her_pipe, token);
+		dup2(g_data.fack_out, STDOUT_FILENO);
+		dup2(g_data.fack_in, STDIN_FILENO);
 		dup2(her_pipe[READ], STDIN_FILENO);
-	free(her_pipe);
+		g_data.fack_in = her_pipe[READ];
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:20:52 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/18 18:41:01 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/19 14:53:38 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,14 @@ char	**alloc_new_env(t_token *head, int *tmp)
 	if (!new_env)
 		ft_error(NULL);
 	return (new_env);
+}
+
+void	ft_pwd(void)
+{
+	char	*tmp;
+
+	tmp = getcwd(NULL, 0);
+	printf("%s\n", tmp);
+	free(tmp);
+	g_data.errsv = 0;
 }

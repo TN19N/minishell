@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/18 19:48:49 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/19 14:50:15 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	get_cmd_line(void)
 		g_data.num_childs = -1;
 		g_data.cmd_line = readline("minishell:$ ");
 		if (!g_data.cmd_line)
-			ft_exit();
+		{
+			printf("exit\n");
+			exit(0);
+		}
 		if (ft_strlen(g_data.cmd_line) > 0)
 		{
 			
@@ -43,14 +46,6 @@ void	get_cmd_line(void)
 		else
 			free(g_data.cmd_line);
 	}
-}
-
-void	edit_attr(void)
-{
-	struct termios	old;
-
-	tcgetattr(STDIN_FILENO, &old);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &old);
 }
 
 char	**copy_env(char **env)
@@ -82,7 +77,6 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	edit_attr();
 	g_data.first_pwd = 0;
 	g_data.errsv = 0;
 	g_data.my_env = copy_env(env);

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 20:08:31 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/18 20:03:58 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/19 14:51:06 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,5 @@ void	execute_builtins_cmds(t_mini_data *mini_data)
 	else if (!ft_strcmp(token->tok, "unset"))
 		ft_unset(mini_data);
 	else if (!ft_strcmp(token->tok, "exit"))
-		ft_exit();
+		ft_exit(mini_data);
 }
