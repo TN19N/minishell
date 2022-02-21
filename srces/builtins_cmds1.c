@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 09:31:41 by hnaciri-          #+#    #+#             */
-/*   Updated: 2022/02/21 09:13:29 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/21 09:19:14 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	ft_exit(t_mini_data *mini_data)
 	to_return = my_atoi(token->tok);
 	if (number_of_types(mini_data, ARGS) > 1)
 	{
-		printf("bash : exit: too many arguments\n");
 		g_data.errsv = 1;
+		printf("bash : exit: too many arguments\n");
 	}
 	else
 		exit(my_atoi(token->tok) % 256);

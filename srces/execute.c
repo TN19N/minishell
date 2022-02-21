@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/21 07:18:55 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/21 10:23:32 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,11 @@ void	start_executing(t_data *data)
 	init_to_start(data, &pipes, &num_pipes, &l_type);
 	if (!if_builtins_cmds(&data->mini_cmds[data->num_childs]) && \
 	data->mini_cmds[data->num_childs].type != PIPE)
+	{
+		active_all_heredoc(data);
+		active_all_files(data);
 		b_cmds(&data->mini_cmds[data->num_childs], pipes, i, l_type);
+	}
 	else
 		creat_childernes(data, &i, &l_type, pipes);
 	free(data->pid);

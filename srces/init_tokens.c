@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:12:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 20:38:55 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/21 10:25:49 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	handl_env_ver(char **tok)
 		j = 0;
 		if ((*tok)[i] == '$')
 		{
+			printf("hhhhhh\n");
 			i++;
 			j = i;
 			while ((*tok)[i] && (ft_isalnum((*tok)[i]) || \
@@ -70,19 +71,25 @@ void	handl_env_ver(char **tok)
 
 void	check_syntax_error(t_token **t)
 {
-	if ((*t)->last_type == REDIRECT_IN || (*t)->last_type == REDIRECT_OUT || \
-	(*t)->last_type == REDIRECT_OUT_APP || (*t)->last_type == HERE_DOC)
+	t_token	*token;
+
+	token = (*t)->next;
+	if (!token || token->type == REDIRECT_IN || token->type == REDIRECT_OUT || \
+	token->type == REDIRECT_OUT_APP || token->type == HERE_DOC)
 	{
-		if ((*t)->type == REDIRECT_IN)
+		if (!token)
+			ft_putendl_fd("minishell: syntax error \
+near unexpected token `newline'", 2);
+		else if (token->type == REDIRECT_IN)
 			ft_putendl_fd("minishell: syntax error \
 near unexpected token `<'", 2);
-		else if ((*t)->type == REDIRECT_OUT)
+		else if (token->type == REDIRECT_OUT)
 			ft_putendl_fd("minishell: syntax error \
 near unexpected token `>'", 2);
-		else if ((*t)->type == REDIRECT_OUT_APP)
+		else if (token->type == REDIRECT_OUT_APP)
 			ft_putendl_fd("minishell: syntax error \
 near unexpected token `>>'", 2);
-		else if ((*t)->type == HERE_DOC)
+		else if (token->type == HERE_DOC)
 			ft_putendl_fd("minishell: syntax error \
 near unexpected token `<<'", 2);
 		g_data.errsv = 258;
@@ -119,7 +126,7 @@ void	specefec_name(t_token **token, int *first_cmd)
 }
 
 void	init_tokens(t_token **t, int *first_cmd)
-{	
+{
 	if ((*t)->type == WORD || (*t)->type == SINGLE_QUOTE || \
 	(*t)->type == DOUBLE_QUOTE)
 		specefec_name(t, first_cmd);
