@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:47:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/21 10:11:11 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/21 15:05:33 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	active_all_files(t_data *data)
 	i = -1;
 	while (++i < data->num_cmds)
 	{
-		data->mini_cmds[i].last_herdoc = -1;
 		token = data->mini_cmds[i].token_list;
 		while (token)
 		{
@@ -96,7 +95,6 @@ void	active_all_heredoc(t_data *data)
 	i = 0;
 	while (i < data->num_cmds)
 	{
-		data->mini_cmds[i].last_herdoc = -1;
 		token = data->mini_cmds[i].token_list;
 		while (token)
 		{
