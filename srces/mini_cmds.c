@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 11:15:35 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 20:38:59 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/21 07:06:05 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	split_spliter(t_mini_data *mini_cmds, int *i, int *j, t_data *data)
 
 void	init_last_cmd(t_data *data, int index, int j, int i)
 {
+	data->mini_cmds[index].token_list = NULL;
 	data->mini_cmds[index].all_cmd = NULL;
 	data->mini_cmds[index].data = data;
 	data->mini_cmds[index].all_cmd = ft_substr(data->cmd_line, j, (j - i));

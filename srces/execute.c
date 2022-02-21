@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 20:38:44 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/21 07:18:55 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	b_cmds(t_mini_data *mini_data, int **pipes, int index, int l_type)
 
 void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 {
-	active_all_files(data);
 	active_all_heredoc(data);
+	active_all_files(data);
 	while (data->num_childs < data->num_cmds)
 	{
 		init_for_child(i, l_type, data, pipes);

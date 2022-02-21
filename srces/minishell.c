@@ -6,13 +6,13 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 20:39:27 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/21 06:58:22 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	start(t_data *data)
+static void	start(t_data *data)
 {
 	int	i;
 

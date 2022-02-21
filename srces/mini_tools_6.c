@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:47:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 20:39:24 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/21 09:15:57 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	active_all_files(t_data *data)
 	t_token	*token;
 	int		i;
 
-	i = 0;
-	while (i < data->num_cmds)
+	i = -1;
+	while (++i < data->num_cmds)
 	{
 		data->mini_cmds[i].last_herdoc = -1;
 		token = data->mini_cmds[i].token_list;
@@ -79,10 +79,12 @@ void	active_all_files(t_data *data)
 		{
 			if (token->type == IN_FILE || token->type == OUT_FILE \
 			|| token->type == OUT_FILE_APP)
-				open_files_before(token);
+			{
+				if (open_files_before(token))
+					continue ;
+			}
 			token = token->next;
 		}
-		i++;
 	}
 }
 
