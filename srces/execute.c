@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/21 15:15:38 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/21 20:20:49 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_for_child(int *index, int *last_type, t_data *data, int **pipes)
 	if (*last_type == PIPE && data->num_childs != 0)
 	{
 		(*index)++;
+		printf("close pipe[%d][WRITE] in main proccess\n", *index - 1);
 		close(pipes[*index - 1][WRITE]);
 	}
 }
@@ -58,6 +59,7 @@ void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 {
 	active_all_heredoc(data);
 	active_all_files(data);
+	printf("exit from opning files\n");
 	while (data->num_childs < data->num_cmds)
 	{
 		init_for_child(i, l_type, data, pipes);
@@ -68,14 +70,23 @@ void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 		{
 			if (!if_builtins_cmds(&data->mini_cmds[data->num_childs]))
 			{
+				printf("bulit in cmd in child prrocees cmd :(%s)\n", data->mini_cmds[data->num_childs].all_cmd);
 				b_cmds(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
 				exit(g_data.errsv);
 			}
 			else
+			{
+				printf("normall cmd in child prrocees cmd :(%s)\n", data->mini_cmds[data->num_childs].all_cmd);
 				exec(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
+			}
 		}
+		sleep(1);
 		if (data->num_childs >= 1)
+		{
+			printf("close pipe[%d][RAED] in main proccess\n", *i - 1);
 			close(pipes[*i - 1][READ]);
+		}
+		sleep(1);
 		data->num_childs++;
 	}
 	wait_for_child(data);
@@ -94,12 +105,16 @@ void	start_executing(t_data *data)
 	if (!if_builtins_cmds(&data->mini_cmds[data->num_childs]) && \
 	data->mini_cmds[data->num_childs].type != PIPE)
 	{
+		printf("just one built cmd in main proccess\n");
 		active_all_heredoc(data);
 		active_all_files(data);
 		b_cmds(&data->mini_cmds[data->num_childs], pipes, i, l_type);
 	}
 	else
+	{
+		printf("multiple cmds in childs proccess\n");
 		creat_childernes(data, &i, &l_type, pipes);
+	}
 	free(data->pid);
 	free_all(data, pipes, num_pipes);
 }
