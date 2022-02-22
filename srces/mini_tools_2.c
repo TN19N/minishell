@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 17:20:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/22 09:08:36 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/22 20:35:22 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,19 @@ void	creat_files(t_token *token, int *fd, int *i)
 	if (token->type == OUT_FILE)
 	{
 		fd[*i] = open(token->tok, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		printf("open again fd = [%d] for file that have name (%s)\n", fd[*i], token->tok);
+		//printf("open again fd = [%d] in index %d for file that have name (%s)\n", fd[*i], *i, token->tok);
 		error = 1;
 	}
 	else if (token->type == IN_FILE)
 	{
 		fd[*i] = open(token->tok, O_RDONLY | O_EXCL);
-		printf("open again fd = [%d] for file that have name (%s)\n", fd[*i], token->tok);
+		//printf("open again fd = [%d] in index %d for file that have name (%s)\n", fd[*i], *i, token->tok);
 		error = 1;
 	}
 	else if (token->type == OUT_FILE_APP)
 	{
 		fd[*i] = open(token->tok, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		printf("open again fd = [%d] for file that have name (%s)\n", fd[*i], token->tok);
+		//printf("open again fd = [%d] in index %d for file that have name (%s)\n", fd[*i], *i, token->tok);
 		error = 1;
 	}
 	if (error == 1 && fd[(*i)++] == -1)

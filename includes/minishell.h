@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 21:17:46 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:24:07 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	ft_unset_export_err(char *s, int i);
 void	check_syntax(t_data *data);
 void	set_hd_and_f(t_mini_data *mini_data, int *fd_files);
 void	set_reder(t_mini_data *mini_data, int **pipes, int l_type, int index);
-void	dup_all_files(t_token *token, int *fd, int *i);
+void	dup_all_files(t_token *token, int *fd_files, int *i);
 void	ft_cd(t_mini_data *mini_data);
 void	ft_free(char **a);
 void	no_home_for_cd(void);
