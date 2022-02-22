@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/21 20:05:22 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/22 07:04:22 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	start(t_data *data)
 	}
 	start_executing(data);
 }
+
 void	get_cmd_line(void)
 {
 	while (1337)

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/21 20:20:49 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/22 09:29:15 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,28 @@ void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 			if (!if_builtins_cmds(&data->mini_cmds[data->num_childs]))
 			{
 				printf("bulit in cmd in child prrocees cmd :(%s)\n", data->mini_cmds[data->num_childs].all_cmd);
+				if ( data->mini_cmds[data->num_childs].type == PIPE)
+					printf("hes type is PIPE\n");
+				else if ( data->mini_cmds[data->num_childs].type == LASTONE)
+					printf("hes type is LASTONE\n");
+				if (*l_type == PIPE)
+					printf("hes last_type is PIPE\n");
+				else if (*l_type == LASTONE)
+					printf("hes last_type is LASTONE\n");
 				b_cmds(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
 				exit(g_data.errsv);
 			}
 			else
 			{
 				printf("normall cmd in child prrocees cmd :(%s)\n", data->mini_cmds[data->num_childs].all_cmd);
+				if ( data->mini_cmds[data->num_childs].type == PIPE)
+					printf("hes type is PIPE\n");
+				else if ( data->mini_cmds[data->num_childs].type == LASTONE)
+					printf("hes type is LASTONE\n");
+				if (*l_type == PIPE)
+					printf("hes last_type is PIPE\n");
+				else if (*l_type == LASTONE)
+					printf("hes last_type is LASTONE\n");
 				exec(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
 			}
 		}

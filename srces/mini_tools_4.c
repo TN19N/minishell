@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 20:06:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/21 19:56:50 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/22 07:58:01 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	set_hd_and_f(t_mini_data *mini_data, int *fd_files)
 		if (mini_data->last_herdoc != -1 && token->type == HERE_DOC)
 		{
 			fprintf(stderr, "dup in_put with her_doc fd=[%d] in cmd (%s)\n", mini_data->last_herdoc, token->tok);
-			dup2(mini_data->last_herdoc, STDIN_FILENO);
+			if(dup2(mini_data->last_herdoc, STDIN_FILENO) == -1)
+				fprintf(stderr, "dup2 fail :( |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
 		}
 		else if (token->type == OUT_FILE || \
 		token->type == IN_FILE || token->type == OUT_FILE_APP)
@@ -81,13 +82,15 @@ void	set_reder(t_mini_data *mini_data, int **pipes, int last_type, int index)
 	close_p(mini_data, pipes, last_type, index);
 	if (mini_data->type == PIPE)
 	{
-		fprintf(stderr, "close pipe[%d][WRITE] in cmd (%s)\n", index, mini_data->all_cmd);
-		dup2(pipes[index][WRITE], STDOUT_FILENO);
+		fprintf(stderr, "dup out_put with pipe[%d][WRITE] in cmd (%s)\n", index, mini_data->all_cmd);
+		if(dup2(pipes[index][WRITE], STDOUT_FILENO) == -1)
+			fprintf(stderr, "dup2 fail :( |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
 	}
 	if (last_type == PIPE)
 	{
-		fprintf(stderr, "close pipe[%d][READ] in cmd (%s)\n", index - 1, mini_data->all_cmd);
-		dup2(pipes[index - 1][READ], STDIN_FILENO);
+		fprintf(stderr, "dup in_put with pipe[%d][READ] in cmd (%s)\n", index - 1, mini_data->all_cmd);
+		if(dup2(pipes[index - 1][READ], STDIN_FILENO) == -1)
+			fprintf(stderr, "dup2 fail :( |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
 	}
 }
 
@@ -96,16 +99,22 @@ void	dup_all_files(t_token *token, int *fd, int *i)
 	if (token->type == OUT_FILE)
 	{
 		fprintf(stderr, "dup out_put with file fd=[%d] in cmd (%s)\n", fd[*i], token->tok);
-		dup2(fd[(*i)++], STDOUT_FILENO);
+		if(dup2(fd[*i], STDOUT_FILENO) == -1)
+			fprintf(stderr, "dup2 fail :( ||||||||||||||||||||||||||(errno = %d)|||||||||||||||||||||||||||||||||||||||2\n", errno);
+		(*i)++;
 	}
 	else if (token->type == IN_FILE)
 	{
 		fprintf(stderr, "dup in_put with file fd=[%d] in cmd (%s)\n", fd[*i], token->tok);
-		dup2(fd[(*i)++], STDIN_FILENO);
+		if(dup2(fd[*i], STDIN_FILENO) == -1)
+			fprintf(stderr, "dup2 fail :( ||||||||||||||||||||||||||(errno = %d)|||||||||||||||||||||||||||||||||||||||2\n", errno);
+		(*i)++;
 	}
 	else if (token->type == OUT_FILE_APP)
 	{
 		fprintf(stderr, "dup out_put with file fd=[%d] in cmd (%s)\n", fd[*i], token->tok);
-		dup2(fd[(*i)++], STDOUT_FILENO);
+		if(dup2(fd[*i], STDOUT_FILENO) == -1)
+			fprintf(stderr, "dup2 fail :( ||||||||||||||||||||||||||(errno = %d)|||||||||||||||||||||||||||||||||||||||2\n", errno);
+		(*i)++;
 	}
 }
