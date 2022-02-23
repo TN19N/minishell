@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:02:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 21:15:34 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:17:35 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include "../includes/minishell.h"
+# include "minishell.h"
 
 //#1
 int		ft_atoi(const char *str);

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/23 08:52:09 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 14:25:55 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	exec(t_mini_data *mini_data, int **pipes, int index, int last_type)
 	fd_files = open_files(mini_data);
 	set_reder(mini_data, pipes, last_type, index);
 	set_hd_and_f(mini_data, fd_files);
+	if (!grep_a_type(mini_data->token_list, CMD))
+		exit(EXIT_SUCCESS);
 	get_cmd_paths(mini_data, &cmd_path, &cmd_args);
 	if (execve(cmd_path, cmd_args, g_data.my_env) == -1)
 		ft_error(NULL);
@@ -58,7 +60,6 @@ void	b_cmds(t_mini_data *mini_data, int **pipes, int index, int l_type)
 void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 {
 	active_all_heredoc(data);
-	active_all_files(data);
 	while (data->num_childs < data->num_cmds)
 	{
 		init_for_child(i, l_type, data, pipes);
@@ -95,7 +96,6 @@ void	start_executing(t_data *data)
 	data->mini_cmds[data->num_childs].type != PIPE)
 	{
 		active_all_heredoc(data);
-		active_all_files(data);
 		b_cmds(&data->mini_cmds[data->num_childs], pipes, i, l_type);
 	}
 	else

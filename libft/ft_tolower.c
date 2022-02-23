@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 16:41:17 by mannouao          #+#    #+#             */
-/*   Updated: 2021/11/11 18:13:53 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:09:22 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 int	ft_tolower(int c)
 {

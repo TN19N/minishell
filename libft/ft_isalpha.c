@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 11:27:33 by mannouao          #+#    #+#             */
-/*   Updated: 2021/11/11 18:29:40 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:07:54 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 int	ft_isalpha(int x)
 {

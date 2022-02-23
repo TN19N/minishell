@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 18:06:30 by mannouao          #+#    #+#             */
-/*   Updated: 2021/11/14 15:54:52 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:09:17 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 static int	len_back(const char *s1, const char *set)
 {

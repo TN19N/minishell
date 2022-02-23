@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 09:48:42 by mannouao          #+#    #+#             */
-/*   Updated: 2021/11/13 20:29:23 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:08:09 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 static int	ft_len_num(int a)
 {

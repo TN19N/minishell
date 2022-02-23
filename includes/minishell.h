@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/23 08:53:06 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 14:28:13 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define WORD 14
 
 # include <fcntl.h>
-# include "../libft/libft.h"
+# include "libft.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -68,8 +68,6 @@ typedef struct s_mini_data
 	int		type;
 	char	*all_cmd;
 	int		last_herdoc;
-	int		last_out_file;
-	int		last_in_file;
 	t_token	*token_list;
 	t_data	*data;
 }			t_mini_data;
@@ -154,7 +152,6 @@ int		handl_singl_things(int *i, char *cmd_line, int tmp, char c);
 void	update_my_tokens(t_mini_data *mini_cmd);
 void	ft_export(t_mini_data *mini_data);
 void	active_all_heredoc(t_data *data);
-void	active_all_files(t_data *data);
 void	close_last_pipe(t_data *data, int **pipes, int *i);
 
 #endif

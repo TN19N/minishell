@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 20:08:31 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/21 15:19:56 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 13:59:18 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	if_builtins_cmds(t_mini_data *mini_data)
 
 	token = grep_a_type(mini_data->token_list, CMD);
 	if (!token)
-		return (0);
+		return (1);
 	if (!ft_strcmp(token->tok, "echo"))
 		return (0);
 	else if (!ft_strcmp(token->tok, "pwd"))

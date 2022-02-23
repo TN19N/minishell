@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 11:54:37 by mannouao          #+#    #+#             */
-/*   Updated: 2021/11/11 18:09:11 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:07:57 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 int	ft_isascii(int x)
 {

@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 08:47:33 by mannouao          #+#    #+#             */
-/*   Updated: 2022/01/31 17:13:03 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:08:37 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 static int	ft_len_word(char const *s, char c)
 {

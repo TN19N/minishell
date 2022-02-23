@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:47:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/22 21:06:15 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 09:24:51 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,46 +45,6 @@ void	update_my_tokens(t_mini_data *mini_cmd)
 	{
 		init_tokens(&token, &first_cmd);
 		token = token->next;
-	}
-}
-
-int	open_files_before(t_token *token)
-{
-	int	fd;
-
-	if (token->type == OUT_FILE)
-		fd = open(token->tok, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (token->type == IN_FILE)
-		fd = open(token->tok, O_RDONLY | O_EXCL);
-	else
-		fd = open(token->tok, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd == -1)
-		return (1);
-	else
-		close(fd);
-	return (0);
-}
-
-void	active_all_files(t_data *data)
-{
-	t_token	*token;
-	int		i;
-
-	i = 0;
-	while (i < data->num_cmds)
-	{
-		token = data->mini_cmds[i].token_list;
-		while (token)
-		{
-			if (token->type == IN_FILE || token->type == OUT_FILE \
-			|| token->type == OUT_FILE_APP)
-			{
-				if (open_files_before(token))
-					break ;
-			}
-			token = token->next;
-		}
-		i++;
 	}
 }
 

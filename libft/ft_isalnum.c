@@ -6,11 +6,11 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 11:44:49 by mannouao          #+#    #+#             */
-/*   Updated: 2021/11/11 18:29:28 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:07:51 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 int	ft_isalnum(int x)
 {
