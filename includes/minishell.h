@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/22 18:24:07 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 08:53:06 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,5 +155,6 @@ void	update_my_tokens(t_mini_data *mini_cmd);
 void	ft_export(t_mini_data *mini_data);
 void	active_all_heredoc(t_data *data);
 void	active_all_files(t_data *data);
+void	close_last_pipe(t_data *data, int **pipes, int *i);
 
 #endif

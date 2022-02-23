@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:39:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 20:38:49 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 08:53:22 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,13 @@ void	get_cmd_paths(t_mini_data *mini_data, char **cmd_path, char ***c_args)
 		token = token->next;
 	}
 	(*c_args)[count] = NULL;
+}
+
+void	close_last_pipe(t_data *data, int **pipes, int *i)
+{
+	if (data->num_childs >= 1)
+	{
+		close(pipes[*i - 1][READ]);
+		pipes[*i - 1][READ] = -1337;
+	}
 }

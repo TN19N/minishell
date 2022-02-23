@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 10:25:14 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/22 20:35:09 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/22 21:08:31 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	*open_files(t_mini_data *mini_data)
 	num_fd = number_of_types(mini_data, OUT_FILE);
 	num_fd += number_of_types(mini_data, IN_FILE);
 	num_fd += number_of_types(mini_data, OUT_FILE_APP);
-	//printf("number of files = %d\n", num_fd);
 	if (num_fd == 0)
 		return (NULL);
 	fd = malloc(sizeof(int) * (num_fd + 1));
@@ -55,7 +54,6 @@ int	*open_files(t_mini_data *mini_data)
 void	init_to_start(t_data *data, int	***pipes, int *num_pipes, int *l_type)
 {
 	*num_pipes = get_pipes(data, pipes);
-	//printf("number of pipes %d\n", *num_pipes);
 	*l_type = LASTONE;
 	data->pid = malloc(sizeof(int) * data->num_cmds);
 	if (!data->pid)
