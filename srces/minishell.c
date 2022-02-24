@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/23 08:54:58 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:45:51 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,12 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	g_data.first_pwd = 0;
 	g_data.errsv = 0;
+	g_data.here_doc_to_kill = -1;
 	g_data.my_env = copy_env(env);
 	sig_int.sa_handler = &handler;
-	sig_int.sa_flags = SA_NODEFER;
+	sig_int.sa_flags = SA_NODEFER | SA_RESTART;
 	sig_quit.sa_handler = SIG_IGN;
-	sig_quit.sa_flags = SA_NODEFER;
+	sig_quit.sa_flags = SA_NODEFER | SA_RESTART;
 	if (sigaction(SIGINT, &sig_int, NULL) == -1)
 		ft_error(NULL);
 	if (sigaction(SIGQUIT, &sig_quit, NULL) == -1)

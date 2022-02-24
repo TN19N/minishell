@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 20:06:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/23 14:26:51 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 16:23:53 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	set_hd_and_f(t_mini_data *mini_data, int *fd_files)
 	{
 		if (token->type == HERE_DOC && mini_data->last_herdoc != -1)
 		{
+			printf("dup %d\n", mini_data->last_herdoc);
 			if (dup2(mini_data->last_herdoc, STDIN_FILENO) == -1)
 				ft_error(NULL);
 		}

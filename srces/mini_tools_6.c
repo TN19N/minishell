@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:47:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/23 09:24:51 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/23 16:11:17 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,5 @@ void	update_my_tokens(t_mini_data *mini_cmd)
 	{
 		init_tokens(&token, &first_cmd);
 		token = token->next;
-	}
-}
-
-void	active_all_heredoc(t_data *data)
-{
-	t_token	*token;
-	int		i;
-
-	i = 0;
-	while (i < data->num_cmds)
-	{
-		data->mini_cmds[i].last_herdoc = -1;
-		token = data->mini_cmds[i].token_list;
-		while (token)
-		{
-			if (token->type == HERE_DOC)
-				here_doc(token, &data->mini_cmds[i]);
-			token = token->next;
-		}
-		i++;
 	}
 }

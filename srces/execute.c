@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/23 14:25:55 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 12:49:27 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	b_cmds(t_mini_data *mini_data, int **pipes, int index, int l_type)
 
 void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 {
-	active_all_heredoc(data);
 	while (data->num_childs < data->num_cmds)
 	{
 		init_for_child(i, l_type, data, pipes);
@@ -68,6 +67,8 @@ void	creat_childernes(t_data *data, int *i, int *l_type, int **pipes)
 			ft_error(NULL);
 		else if (data->pid[data->num_childs] == 0)
 		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			if (!if_builtins_cmds(&data->mini_cmds[data->num_childs]))
 			{
 				b_cmds(&data->mini_cmds[data->num_childs], pipes, *i, *l_type);
@@ -91,13 +92,15 @@ void	start_executing(t_data *data)
 
 	i = 0;
 	data->num_childs = 0;
+	if (creat_child_for_heredoc(data))
+	{
+		free_all(data, NULL, 0);
+		return ;
+	}
 	init_to_start(data, &pipes, &num_pipes, &l_type);
 	if (!if_builtins_cmds(&data->mini_cmds[data->num_childs]) && \
 	data->mini_cmds[data->num_childs].type != PIPE)
-	{
-		active_all_heredoc(data);
 		b_cmds(&data->mini_cmds[data->num_childs], pipes, i, l_type);
-	}
 	else
 		creat_childernes(data, &i, &l_type, pipes);
 	free(data->pid);
