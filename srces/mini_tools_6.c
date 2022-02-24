@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:47:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/23 16:11:17 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:51:36 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	handl_singl_things(int *i, char *cmd_line, int tmp, char c)
 	return (0);
 }
 
-void	update_my_tokens(t_mini_data *mini_cmd)
+int	update_my_tokens(t_mini_data *mini_cmd)
 {
 	int		first_cmd;
 	t_token	*token;
@@ -43,7 +43,16 @@ void	update_my_tokens(t_mini_data *mini_cmd)
 	token = mini_cmd->token_list;
 	while (token)
 	{
-		init_tokens(&token, &first_cmd);
+		if (init_tokens(&token, &first_cmd))
+			return (1);
 		token = token->next;
 	}
+	return (0);
+}
+
+void	handler2(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	g_data.errsv = 1;
 }

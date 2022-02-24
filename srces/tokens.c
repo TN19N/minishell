@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 17:05:25 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 21:10:34 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:44:28 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	words(t_token **token, char *cmd_line, int *i)
 	(*token)->type = WORD;
 }
 
-void	get_tokens(char *all_cmd, t_mini_data *mini_cmd)
+int	get_tokens(char *all_cmd, t_mini_data *mini_cmd)
 {
 	t_token	*token;
 	int		i;
@@ -119,5 +119,7 @@ void	get_tokens(char *all_cmd, t_mini_data *mini_cmd)
 		else if (!is_here(all_cmd[i], " \t\n\v\f\r"))
 			words(&token, all_cmd, &i);
 	}
-	update_my_tokens(mini_cmd);
+	if (update_my_tokens(mini_cmd))
+		return (1);
+	return (0);
 }

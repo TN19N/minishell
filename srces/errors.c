@@ -6,13 +6,13 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:11:28 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/21 07:01:50 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:42:31 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	check_syntax_errors(t_mini_data *mini_data)
+int	check_syntax_errors(t_mini_data *mini_data)
 {
 	if (!*mini_data->all_cmd || if_just_spaces(mini_data->all_cmd))
 	{
@@ -21,8 +21,9 @@ void	check_syntax_errors(t_mini_data *mini_data)
 unexpected token `|\'", 2);
 		g_data.errsv = 258;
 		free_all(mini_data->data, NULL, 0);
-		get_cmd_line();
+		return (1);
 	}
+	return (0);
 }
 
 void	no_home_for_cd(void)

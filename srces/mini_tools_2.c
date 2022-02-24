@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 17:20:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/23 08:53:43 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:35:09 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ void	wait_for_child(t_data *data)
 	i = 0;
 	while (i < data->num_childs)
 	{
-		waitpid(data->pid[i], &returned, 0);
+		if (waitpid(data->pid[i], &returned, 0) == -1)
+			ft_error(NULL);
 		if (WIFSIGNALED(returned))
 			data->errsv = 130;
 		else

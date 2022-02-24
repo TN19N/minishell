@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:12:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/21 11:01:35 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:56:14 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	handl_env_ver(char **tok)
 	}
 }
 
-void	check_syntax_error(t_token **t)
+int	check_syntax_error(t_token **t)
 {
 	t_token	*token;
 
@@ -93,8 +93,9 @@ near unexpected token `>>'", 2);
 near unexpected token `<<'", 2);
 		g_data.errsv = 258;
 		free_all((*t)->data, NULL, 0);
-		get_cmd_line();
+		return (1);
 	}
+	return (0);
 }
 
 void	specefec_name(t_token **token, int *first_cmd)
@@ -124,11 +125,15 @@ void	specefec_name(t_token **token, int *first_cmd)
 	}
 }
 
-void	init_tokens(t_token **t, int *first_cmd)
+int	init_tokens(t_token **t, int *first_cmd)
 {
 	if ((*t)->type == WORD || (*t)->type == SINGLE_QUOTE || \
 	(*t)->type == DOUBLE_QUOTE)
 		specefec_name(t, first_cmd);
 	else
-		check_syntax_error(t);
+	{
+		if (check_syntax_error(t))
+			return (1);
+	}
+	return (0);
 }

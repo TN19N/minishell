@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 12:45:01 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/24 12:50:33 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:24:36 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,23 @@ void	here_doc(int *her_pipe, t_token *token)
 int	fork_childe(t_data *data, int i, t_token *token, int *pipe_fd)
 {
 	int	returned;
+	int	pid;
 
 	returned = 0;
 	if (data->mini_cmds[i].last_herdoc != -1)
 		close(pipe_fd[READ]);
 	if (pipe(pipe_fd) == -1)
 		ft_error(NULL);
-	data->here_doc_to_kill = fork();
-	if (data->here_doc_to_kill == -1)
+	pid = fork();
+	if (pid == -1)
 		ft_error(NULL);
-	else if (data->here_doc_to_kill == 0)
+	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		here_doc(pipe_fd, token);
 	}
 	else
-		if (wait(&returned) == -1)
+		if (waitpid(pid, &returned, 0) == -1)
 			ft_error(NULL);
 	return (returned);
 }
@@ -91,7 +92,6 @@ int	creat_child_for_heredoc(t_data *data)
 			if (token->type == HERE_DOC)
 			{
 				returned = fork_childe(data, i, token, pipe_fd);
-				data->here_doc_to_kill = -1;
 				if (check_returned(data, i, returned, pipe_fd))
 					return (1);
 			}

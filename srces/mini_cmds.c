@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 11:15:35 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/21 07:06:05 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:56:40 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	init_last_cmd(t_data *data, int index, int j, int i)
 	data->mini_cmds[index].type = LASTONE;
 }
 
-void	get_mini_cmds(t_data *data)
+int	get_mini_cmds(t_data *data)
 {
 	int	i;
 	int	ignore[2];
@@ -80,5 +80,5 @@ void	get_mini_cmds(t_data *data)
 			split_spliter(&data->mini_cmds[index++], &i, &j, data);
 	}
 	init_last_cmd(data, index, j, i);
-	check_syntax(data);
+	return (check_syntax(data));
 }

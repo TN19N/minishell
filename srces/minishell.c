@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/24 13:45:51 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:57:23 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ void	start(t_data *data)
 	int	i;
 
 	i = -1;
-	get_mini_cmds(data);
+	if (get_mini_cmds(data))
+		return ;
 	while (++i < data->num_cmds)
-		get_tokens(data->mini_cmds[i].all_cmd, &data->mini_cmds[i]);
+	{
+		if (get_tokens(data->mini_cmds[i].all_cmd, &data->mini_cmds[i]))
+			return ;
+	}
 	start_executing(data);
 }
 
@@ -27,8 +31,13 @@ void	get_cmd_line(void)
 {
 	while (1337)
 	{
-		g_data.num_childs = -1;
+		g_data.sig_int.sa_handler = &handler;
+		if (sigaction(SIGINT, &g_data.sig_int, NULL) == -1)
+			ft_error(NULL);
 		g_data.cmd_line = readline("minishell:$ ");
+		g_data.sig_int.sa_handler = &handler2;
+		if (sigaction(SIGINT, &g_data.sig_int, NULL) == -1)
+			ft_error(NULL);
 		if (!g_data.cmd_line)
 		{
 			printf("exit\n");
@@ -71,21 +80,16 @@ char	**copy_env(char **env)
 
 int	main(int ac, char **av, char **env)
 {
-	struct sigaction	sig_int;
 	struct sigaction	sig_quit;
 
 	(void)ac;
 	(void)av;
 	g_data.first_pwd = 0;
 	g_data.errsv = 0;
-	g_data.here_doc_to_kill = -1;
 	g_data.my_env = copy_env(env);
-	sig_int.sa_handler = &handler;
-	sig_int.sa_flags = SA_NODEFER | SA_RESTART;
 	sig_quit.sa_handler = SIG_IGN;
-	sig_quit.sa_flags = SA_NODEFER | SA_RESTART;
-	if (sigaction(SIGINT, &sig_int, NULL) == -1)
-		ft_error(NULL);
+	sig_quit.sa_flags = SA_RESTART;
+	g_data.sig_int.sa_flags = SA_RESTART;
 	if (sigaction(SIGQUIT, &sig_quit, NULL) == -1)
 		ft_error(NULL);
 	get_cmd_line();

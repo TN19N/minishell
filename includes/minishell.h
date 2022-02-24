@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/24 11:52:03 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:54:40 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,19 @@ typedef struct s_mini_data
 
 typedef struct s_data
 {
-	int			here_doc_to_kill;
-	int			save_in;
-	int			save_out;
-	int			first_pwd;
-	int			count;
-	int			num_childs;
-	int			errsv;
-	int			*pid;
-	char		**my_env;
-	char		*cmd_line;
-	int			num_cmds;
-	t_mini_data	*mini_cmds;
-}				t_data;
+	struct sigaction	sig_int;
+	int					save_in;
+	int					save_out;
+	int					first_pwd;
+	int					count;
+	int					num_childs;
+	int					errsv;
+	int					*pid;
+	char				**my_env;
+	char				*cmd_line;
+	int					num_cmds;
+	t_mini_data			*mini_cmds;
+}						t_data;
 
 void	rl_replace_line(const char *text, int clear_undo);
 void	ft_error(char *str);
@@ -99,13 +99,13 @@ void	parsing(t_data *data);
 int		is_here(char c, char *str);
 void	mini_init(int *i, int *count, int *ignore);
 int		sum_arr(int *ignore);
-void	get_mini_cmds(t_data *data);
-void	get_tokens(char *cmd_line, t_mini_data *mini_cmd);
+int		get_mini_cmds(t_data *data);
+int		get_tokens(char *cmd_line, t_mini_data *mini_cmd);
 t_token	*token_init(t_data *data);
 void	check_if_token_full(t_token **token);
 int		if_just_spaces(char *str);
-void	check_syntax_errors(t_mini_data *mini_data);
-void	init_tokens(t_token **token, int *first_cmd);
+int		check_syntax_errors(t_mini_data *mini_data);
+int		init_tokens(t_token **token, int *first_cmd);
 char	*get_full_path(char *to_find);
 void	start_executing(t_data *data);
 int		number_of_types(t_mini_data *mini_data, int type);
@@ -133,7 +133,7 @@ void	ft_pwd(void);
 void	ft_unset(t_mini_data *l);
 void	edit_attr(void);
 void	ft_unset_export_err(char *s, int i);
-void	check_syntax(t_data *data);
+int		check_syntax(t_data *data);
 void	set_hd_and_f(t_mini_data *mini_data, int *fd_files);
 void	set_reder(t_mini_data *mini_data, int **pipes, int l_type, int index);
 void	dup_all_files(t_token *token, int *fd_files, int *i);
@@ -149,10 +149,11 @@ void	init_to_start(t_data *data, int	***pipes, int *num_pipes, int *l_type);
 void	handl_env_ver(char **tok);
 void	combine_the_words(t_token *token);
 int		handl_singl_things(int *i, char *cmd_line, int tmp, char c);
-void	update_my_tokens(t_mini_data *mini_cmd);
+int		update_my_tokens(t_mini_data *mini_cmd);
 void	ft_export(t_mini_data *mini_data);
 void	active_all_heredoc(t_data *data);
 void	close_last_pipe(t_data *data, int **pipes, int *i);
 int		creat_child_for_heredoc(t_data *data);
+void	handler2(int sig);
 
 #endif

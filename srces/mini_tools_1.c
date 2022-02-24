@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:11:07 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/24 13:46:15 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:20:40 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,7 @@ void	check_if_token_full(t_token **token)
 
 void	handler(int sig)
 {
-	int	i;
-
-	i = 0;
 	(void)sig;
-	if (g_data.here_doc_to_kill != -1)
-		kill(g_data.here_doc_to_kill, SIGTERM);
-	while (i < g_data.num_childs)
-	{
-		kill(g_data.pid[i], SIGTERM);
-		i++;
-	}
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

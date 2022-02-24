@@ -6,19 +6,23 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 20:06:37 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/23 16:23:53 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:54:53 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	check_syntax(t_data *data)
+int	check_syntax(t_data *data)
 {
 	int	i;
 
 	i = -1;
 	while (++i < data->num_cmds)
-		check_syntax_errors(&data->mini_cmds[i]);
+	{
+		if (check_syntax_errors(&data->mini_cmds[i]))
+			return (1);
+	}
+	return (0);
 }
 
 void	set_hd_and_f(t_mini_data *mini_data, int *fd_files)
