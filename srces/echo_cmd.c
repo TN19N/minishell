@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:45:57 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/25 14:42:42 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/25 16:22:17 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ int	ft_n_function(t_token *token)
 	int	i;
 
 	i = 0;
+	if (!token)
+		return (0);
 	if (token->type == ARGS)
 	{
-		if (token->tok[i] != '-')
+		if (token->tok[i] != '-' || !token->tok[i + 1])
 			return (0);
 		while (token->tok[++i])
 			if (token->tok[i] != 'n')
@@ -31,20 +33,27 @@ int	ft_n_function(t_token *token)
 
 void	start_printing(t_token *token, int *n, int *first)
 {
-	while (ft_n_function(token))
+	while (token)
 	{
-		token = token->next;
-		*n = -1;
+		if (token->type == ARGS)
+		{
+			if (!ft_n_function(token))
+				break ;
+			token = token->next;
+			*n = -1;
+		}
+		else
+			token = token->next;
 	}
 	while (token)
 	{
 		if (token->type == ARGS)
 		{
 			if (*first)
-				printf(" ");
+				write(STDOUT_FILENO, " ", 1);
 			else
 				*first = 1;
-			printf ("%s", token->tok);
+			ft_putstr_fd(token->tok, STDOUT_FILENO);
 		}
 		token = token->next;
 	}
