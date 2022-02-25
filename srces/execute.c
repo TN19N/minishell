@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:21:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/24 12:49:27 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:20:54 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	exec(t_mini_data *mini_data, int **pipes, int index, int last_type)
 	if (!grep_a_type(mini_data->token_list, CMD))
 		exit(EXIT_SUCCESS);
 	get_cmd_paths(mini_data, &cmd_path, &cmd_args);
+	if (fd_files)
+		free(fd_files);
 	if (execve(cmd_path, cmd_args, g_data.my_env) == -1)
 		ft_error(NULL);
 }
@@ -51,6 +53,8 @@ void	b_cmds(t_mini_data *mini_data, int **pipes, int index, int l_type)
 	set_reder(mini_data, pipes, l_type, index);
 	set_hd_and_f(mini_data, fd_files);
 	execute_builtins_cmds(mini_data);
+	if (fd_files)
+		free(fd_files);
 	dup2(g_data.save_in, STDIN_FILENO);
 	dup2(g_data.save_out, STDOUT_FILENO);
 	close(g_data.save_in);
