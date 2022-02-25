@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:20:52 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/20 20:38:32 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/25 21:15:12 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ int	ft_is_valid(char *s)
 	int	i;
 
 	i = 0;
-	if (!ft_isalpha (s[i]) || s[i] == '_')
+	if (!ft_isalpha (s[i]) && s[i] != '_')
 	{
 		g_data.errsv = 1;
 		return (0);
 	}
 	while (s[++i])
 	{
-		if (!ft_isalnum(s[i]) || s[i] == '_')
+		if (!ft_isalnum(s[i]) && s[i] != '_')
 		{
 			g_data.errsv = 1;
 			return (0);
