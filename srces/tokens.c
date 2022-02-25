@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 17:05:25 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/24 14:44:28 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/25 11:11:16 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_token	*token_init(t_data *data)
 	return (token);
 }
 
-void	quotes(t_token **token, char *cmd_line, int *i)
+static void	quotes(t_token **token, char *cmd_line, int *i)
 {
 	int		j;
 	char	c;
@@ -55,7 +55,7 @@ void	quotes(t_token **token, char *cmd_line, int *i)
 	}
 }
 
-void	redirecters(t_token **token, char *cmd_line, int *i)
+static void	redirecters(t_token **token, char *cmd_line, int *i)
 {
 	check_if_token_full(token);
 	if (cmd_line[*i] == '<' && cmd_line[*i + 1] == '<')
@@ -82,7 +82,7 @@ void	redirecters(t_token **token, char *cmd_line, int *i)
 	}
 }
 
-void	words(t_token **token, char *cmd_line, int *i)
+static void	words(t_token **token, char *cmd_line, int *i)
 {
 	int	j;
 

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/24 14:54:40 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/25 13:55:47 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,8 @@ typedef struct s_data
 
 void	rl_replace_line(const char *text, int clear_undo);
 void	ft_error(char *str);
-void	execute(char **cmd_line, int **fd, int i, int num_cmd);
 void	handler(int sig);
-void	free_2d_table(char **table);
-void	get_cmd_line(void);
-int		**init_pipe(int num_cmds);
-void	parsing(t_data *data);
 int		is_here(char c, char *str);
-void	mini_init(int *i, int *count, int *ignore);
-int		sum_arr(int *ignore);
 int		get_mini_cmds(t_data *data);
 int		get_tokens(char *cmd_line, t_mini_data *mini_cmd);
 t_token	*token_init(t_data *data);
@@ -109,13 +102,11 @@ int		init_tokens(t_token **token, int *first_cmd);
 char	*get_full_path(char *to_find);
 void	start_executing(t_data *data);
 int		number_of_types(t_mini_data *mini_data, int type);
-void	start_executing(t_data *data);
 void	get_cmd_paths(t_mini_data *mini_data, char **cmd_path, char ***c_args);
 int		get_pipes(t_data *data, int ***pipes);
 void	creat_files(t_token *token, int *fd, int *num_fd);
 void	wait_for_child(t_data *data);
 void	free_all(t_data *data, int **pipes, int count);
-void	set_signals(void);
 int		if_builtins_cmds(t_mini_data *mini_data);
 void	ft_exit(t_mini_data *mini_data);
 void	ft_env(void);
@@ -125,13 +116,9 @@ int		ft_is_in(char *s);
 void	execute_builtins_cmds(t_mini_data *mini_data);
 void	ft_unset(t_mini_data *mini_data);
 void	ft_pwd(void);
-void	ft_unset_err(char *s);
 t_token	*grep_a_type(t_token *token, int type);
 char	**alloc_new_env(t_token *head, int *tmp);
 void	ft_env(void);
-void	ft_pwd(void);
-void	ft_unset(t_mini_data *l);
-void	edit_attr(void);
 void	ft_unset_export_err(char *s, int i);
 int		check_syntax(t_data *data);
 void	set_hd_and_f(t_mini_data *mini_data, int *fd_files);
@@ -140,11 +127,8 @@ void	dup_all_files(t_token *token, int *fd_files, int *i);
 void	ft_cd(t_mini_data *mini_data);
 void	ft_free(char **a);
 void	no_home_for_cd(void);
-char	**copy_env(char **env);
-int		check_returnes(int type);
 int		*open_files(t_mini_data *mini_data);
 void	ft_echo(t_mini_data *mini_data);
-int		check_to_stop(t_data *data, int index);
 void	init_to_start(t_data *data, int	***pipes, int *num_pipes, int *l_type);
 void	handl_env_ver(char **tok);
 void	combine_the_words(t_token *token);
@@ -155,5 +139,6 @@ void	active_all_heredoc(t_data *data);
 void	close_last_pipe(t_data *data, int **pipes, int *i);
 int		creat_child_for_heredoc(t_data *data);
 void	handler2(int sig);
+int		atoi_part_2(char *tok_copy, int *valid, u_int64_t *num, int o);
 
 #endif

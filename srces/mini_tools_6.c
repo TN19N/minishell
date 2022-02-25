@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:47:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/24 14:51:36 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/25 13:54:04 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,25 @@ void	handler2(int sig)
 	(void)sig;
 	write(1, "\n", 1);
 	g_data.errsv = 1;
+}
+
+int	atoi_part_2(char *tok_copy, int *valid, u_int64_t *num, int o)
+{
+	int	i;
+
+	i = 0;
+	while (tok_copy[i] >= '0' && tok_copy[i] <= '9')
+	{
+		*valid = 1;
+		*num = (*num * 10) + (tok_copy[i] - '0');
+		if (*num > __LONG_MAX__ && o == 1)
+			return (1);
+		else if (*num > (u_int64_t)__LONG_MAX__ + \
+		(u_int64_t)1 && o == -1)
+			return (1);
+		i++;
+	}
+	if (tok_copy[i])
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 09:31:41 by hnaciri-          #+#    #+#             */
-/*   Updated: 2022/02/21 09:19:14 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/25 13:56:55 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,26 @@ void	exit_error(char *tok)
 
 static long long	my_atoi(char *tok)
 {
-	unsigned long long	num;
-	int					o;
-	int					i;
+	u_int64_t	num;
+	int			o;
+	int			i;
+	int			valid;
+	char		*tok_copy;
 
-	o = 42;
-	i = -1;
-	while (tok[i] == ' ')
-		i++;
-	if (tok[i] == '-' || tok[i] == '+')
-		if (tok[i++] == '-')
+	o = 1;
+	i = 0;
+	num = 0;
+	valid = 0;
+	tok_copy = ft_strtrim(tok, " ");
+	if (tok_copy[i] == '-' || tok_copy[i] == '+')
+		if (tok_copy[i++] == '-')
 			o = -1;
-	while (tok[i] >= '0' && tok[i] <= '9')
+	if (atoi_part_2(&tok_copy[i], &valid, &num, o) || valid == 0)
 	{
-		o = 1;
-		num = (num * 10) + (tok[i] - '0');
-		if (num > __LONG_MAX__ && o == 1)
-			exit_error(tok);
-		else if (num > (unsigned long long)__LONG_MAX__ + \
-		(unsigned long long)1 && o == -1)
-			exit_error(tok);
-		i++;
-	}
-	if (o == 42 || (tok[i] != '\0' && tok[i] != ' '))
+		free(tok_copy);
 		exit_error(tok);
+	}
+	free(tok_copy);
 	return (num * o);
 }
 
@@ -52,8 +48,10 @@ void	ft_exit(t_mini_data *mini_data)
 	t_token		*token;
 	int			i;
 	long long	to_return;
+	int			valid;
 
 	i = 0;
+	valid = 0;
 	printf("exit\n");
 	token = mini_data->token_list;
 	while (token)
