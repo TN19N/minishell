@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 09:31:41 by hnaciri-          #+#    #+#             */
-/*   Updated: 2022/02/25 13:56:55 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:31:37 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static long long	my_atoi(char *tok)
 	i = 0;
 	num = 0;
 	valid = 0;
-	tok_copy = ft_strtrim(tok, " ");
+	tok_copy = ft_strtrim(tok, " \t\n\v\f\r");
 	if (tok_copy[i] == '-' || tok_copy[i] == '+')
 		if (tok_copy[i++] == '-')
 			o = -1;
