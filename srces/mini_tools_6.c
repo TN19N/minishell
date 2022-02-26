@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:47:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/26 10:58:24 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/26 11:35:11 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	handle_specile_k(t_token *token)
 		return ;
 	count_dollar = 0;
 	len_tk = ft_strlen(token->tok);
-	if (len_tk == 0)
+	if (len_tk == 0 || token->linker == 0)
 		return ;
 	if (token->type != WORD && token->tok[len_tk - 1] != '$')
 		return ;

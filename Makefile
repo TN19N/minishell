@@ -6,7 +6,7 @@
 #    By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/14 14:18:57 by mannouao          #+#    #+#              #
-#    Updated: 2022/02/26 10:59:20 by mannouao         ###   ########.fr        #
+#    Updated: 2022/02/26 11:36:14 by mannouao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ CFLAGS = -Wall -Wextra -Werror
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(LIBFT_PATH)
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -L/Users/mannouao/.brew/opt/readline/lib -I/Users/mannouao/.brew/opt/readline/include -fsanitize=address $(LIBFT_PATH) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -lreadline -L/Users/mannouao/.brew/opt/readline/lib -I/Users/mannouao/.brew/opt/readline/include $(LIBFT_PATH) -o $(NAME)
 
 $(LIBFT_PATH) : 
 	make -C libft
