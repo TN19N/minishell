@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:27 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/26 11:03:17 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/26 15:36:32 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,7 @@ int		creat_child_for_heredoc(t_data *data);
 void	handler2(int sig);
 int		atoi_part_2(char *tok_copy, int *valid, u_int64_t *num, int o);
 void	handle_specile_k2(t_token *token, t_token *n_token, int len_tk);
+void	ft_cd_2(char *old);
+void	ft_setpwd(char *old);
 
 #endif

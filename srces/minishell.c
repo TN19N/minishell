@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/26 11:05:41 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/26 16:01:54 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	edit_attr(void)
 
 	if (tcgetattr(STDIN_FILENO, &settings) == -1)
 		ft_error(NULL);
-	settings.c_lflag &= ~(ECHOCTL);
+	settings.c_cflag &= ~(ECHOCTL);
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &settings) == -1)
 		ft_error(NULL);
 }

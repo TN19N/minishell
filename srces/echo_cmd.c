@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 14:45:57 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/25 16:22:17 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/26 15:35:34 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,20 @@ void	ft_echo(t_mini_data *mini_data)
 	start_printing(token, &n, &first);
 	if (n == 1)
 		printf ("\n");
+}
+
+void	ft_cd_2(char *old)
+{
+	char	*derectori;
+
+	derectori = get_full_path("HOME");
+	if (derectori && !derectori[0])
+		ft_setpwd(old);
+	else if (chdir(derectori))
+	{
+		free(old);
+		no_home_for_cd();
+	}
+	else
+		ft_setpwd(old);
 }

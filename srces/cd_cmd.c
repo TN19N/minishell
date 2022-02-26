@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:40:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/21 06:56:12 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/26 15:34:43 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,14 @@ void	ft_cd(t_mini_data *mini_data)
 
 	g_data.errsv = 0;
 	old = getcwd(NULL, 0);
-	head = mini_data->token_list;
+	head = grep_a_type(mini_data->token_list, CMD);
+	while (head->next && head->next->type != ARGS)
+		head = head->next;
 	if (head->next && head->next->type == ARGS)
 	{
-		if (chdir(head->next->tok))
+		if (!head->next->tok[0])
+			ft_setpwd (old);
+		else if (chdir(head->next->tok))
 		{
 			free(old);
 			cd_error(head->next->tok);
@@ -91,11 +95,5 @@ void	ft_cd(t_mini_data *mini_data)
 			ft_setpwd(old);
 		return ;
 	}
-	if (chdir(get_full_path("HOME")))
-	{
-		free(old);
-		no_home_for_cd();
-	}
-	else
-		ft_setpwd(old);
+	ft_cd_2(old);
 }
