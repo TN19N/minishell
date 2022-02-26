@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:47:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/25 13:54:04 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/26 10:58:24 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,31 @@ int	handl_singl_things(int *i, char *cmd_line, int tmp, char c)
 	return (0);
 }
 
+static void	handle_specile_k(t_token *token)
+{
+	int		len_tk;
+	int		count_dollar;
+	int		i;
+
+	if (!token->next)
+		return ;
+	count_dollar = 0;
+	len_tk = ft_strlen(token->tok);
+	if (len_tk == 0)
+		return ;
+	if (token->type != WORD && token->tok[len_tk - 1] != '$')
+		return ;
+	if (len_tk > 1)
+	{
+		i = 1;
+		while (token->tok[len_tk - i] && token->tok[len_tk - i] == '$')
+				i++;
+		if (!((i - 1) % 2))
+			return ;
+	}
+	handle_specile_k2(token, token->next, len_tk);
+}
+
 int	update_my_tokens(t_mini_data *mini_cmd)
 {
 	int		first_cmd;
@@ -35,6 +60,7 @@ int	update_my_tokens(t_mini_data *mini_cmd)
 	token = mini_cmd->token_list;
 	while (token)
 	{
+		handle_specile_k(token);
 		if (token->type != SINGLE_QUOTE)
 			handl_env_ver(&token->tok);
 		token = token->next;

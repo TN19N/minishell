@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:26:39 by hnaciri-          #+#    #+#             */
-/*   Updated: 2022/02/25 21:19:21 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/26 08:54:08 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int	ft_check_export(t_token *token)
 		return (0);
 	if ((!ft_isalpha(token->tok[0]) || token->tok[0] == '=') \
 	&& token->tok[0] != '_')
-	{
-		printf("hhhhhh\n");
 		return (-1);
-	}
 	while (token->tok[++i])
 	{		
 		if (!ft_isalnum(token->tok[i]) \

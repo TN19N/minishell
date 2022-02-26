@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 12:45:01 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/24 14:24:36 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/26 10:35:32 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,16 @@ int	creat_child_for_heredoc(t_data *data)
 		i++;
 	}
 	return (0);
+}
+
+void	handle_specile_k2(t_token *token, t_token *n_token, int len_tk)
+{
+	char	*tmp_tok;
+
+	if (n_token->type == DOUBLE_QUOTE || n_token->type == SINGLE_QUOTE)
+	{
+		tmp_tok = token->tok;
+		token->tok = ft_substr(token->tok, 0, len_tk - 1);
+		free(tmp_tok);
+	}
 }
