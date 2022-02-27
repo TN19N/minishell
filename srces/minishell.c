@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/26 16:01:54 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/27 15:16:36 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,6 @@ static char	**copy_env(char **env)
 	return (tmp_env);
 }
 
-static void	edit_attr(void)
-{
-	struct termios	settings;
-
-	if (tcgetattr(STDIN_FILENO, &settings) == -1)
-		ft_error(NULL);
-	settings.c_cflag &= ~(ECHOCTL);
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &settings) == -1)
-		ft_error(NULL);
-}
-
 int	main(int ac, char **av, char **env)
 {
 	struct sigaction	sig_quit;
@@ -97,7 +86,6 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	g_data.first_pwd = 0;
 	g_data.errsv = 0;
-	edit_attr();
 	g_data.my_env = copy_env(env);
 	sig_quit.sa_handler = SIG_IGN;
 	sig_quit.sa_flags = SA_RESTART;

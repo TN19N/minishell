@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:47:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/26 13:53:40 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/27 15:24:21 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,21 @@
 
 int	handl_singl_things(int *i, char *cmd_line, int tmp, char c)
 {
+	int	b = 0;
+
 	if (!cmd_line[*i + 1])
-		return (1);
-	while (cmd_line[tmp] != c && cmd_line[tmp])
+		b = 1;
+	while (!b && cmd_line[tmp] != c && cmd_line[tmp])
 		tmp++;
-	if (!cmd_line[tmp])
+	if (!b && !cmd_line[tmp])
 	{
 		*i = tmp - 1;
-		return (1);
+		b = 1;
+	}
+	if (b == 1)
+	{
+		printf("We dont that here !!!; (RELANCH MINISHELL -->)\n");
+		exit(42);
 	}
 	return (0);
 }
