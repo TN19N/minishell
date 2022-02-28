@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 10:47:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/02/27 15:24:21 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/02/28 18:55:09 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	handl_singl_things(int *i, char *cmd_line, int tmp, char c)
 {
-	int	b = 0;
+	int	b;
 
+	b = 0;
 	if (!cmd_line[*i + 1])
 		b = 1;
 	while (!b && cmd_line[tmp] != c && cmd_line[tmp])
