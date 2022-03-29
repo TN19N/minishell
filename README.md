@@ -8,5 +8,5 @@ We will learn a lot about processes and file descriptors
 ## done with team Worke (Hamza)
 
 <p>
-	<img src="https://raw.githubusercontent.com/Mustapha-Nawawi-T/cub3d/main/screen_shoot.png" alt="screen_shoot">
+	<img src="https://raw.githubusercontent.com/Mustapha-Nawawi-T/minishell/main/screen_shoot.png" alt="screen_shoot">
 </p>
